@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<!-- saved from url=(0093)https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+
+    <title>Assignment 2</title>
+    <link rel="shortcut icon" type="image/x-icon" href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/static/base/images/favicon.ico?v=30780f272ab4aac64aa073a841546240">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="./Assignment 2_files/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="./Assignment 2_files/jquery.typeahead.min.css" type="text/css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+
+
+<script type="text/javascript" src="./Assignment 2_files/MathJax.js.download" charset="utf-8"></script><style type="text/css">
+:root #header + #content > #left > #rlblock_left
+{ display: none !important; }</style>
+
+<script type="text/javascript">
+// MathJax disabled, set as null to distingish from *missing* MathJax,
+// where it will be undefined, and should prompt a dialog later.
+window.mathjax_url = "/user/yracpdmrdlfafpmzrbykhd/static/components/MathJax/MathJax.js";
+</script>
+
+<link rel="stylesheet" href="./Assignment 2_files/bootstrap-tour.min.css" type="text/css">
+<link rel="stylesheet" href="./Assignment 2_files/codemirror.css">
+
+
+    <link rel="stylesheet" href="./Assignment 2_files/style.min.css" type="text/css">
+    
+
+<link rel="stylesheet" href="./Assignment 2_files/override.css" type="text/css">
+<link rel="stylesheet" href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb" id="kernel-css" type="text/css">
+
+
+    <link rel="stylesheet" href="./Assignment 2_files/custom.css" type="text/css">
+    <script src="./Assignment 2_files/promise.min.js.download" type="text/javascript" charset="utf-8"></script>
+    <script src="./Assignment 2_files/require.js.download" type="text/javascript" charset="utf-8"></script>
+    <script>
+      require.config({
+          
+          urlArgs: "v=20170123060915",
+          
+          baseUrl: '/user/yracpdmrdlfafpmzrbykhd/static/',
+          paths: {
+            'auth/js/main': 'auth/js/main.min',
+            custom : '/user/yracpdmrdlfafpmzrbykhd/custom',
+            nbextensions : '/user/yracpdmrdlfafpmzrbykhd/nbextensions',
+            kernelspecs : '/user/yracpdmrdlfafpmzrbykhd/kernelspecs',
+            underscore : 'components/underscore/underscore-min',
+            backbone : 'components/backbone/backbone-min',
+            jquery: 'components/jquery/jquery.min',
+            bootstrap: 'components/bootstrap/js/bootstrap.min',
+            bootstraptour: 'components/bootstrap-tour/build/js/bootstrap-tour.min',
+            'jquery-ui': 'components/jquery-ui/ui/minified/jquery-ui.min',
+            moment: 'components/moment/moment',
+            codemirror: 'components/codemirror',
+            termjs: 'components/term.js/src/term',
+            typeahead: 'components/jquery-typeahead/dist/jquery.typeahead'
+          },
+	  map: { // for backward compatibility
+	    "*": {
+		"jqueryui": "jquery-ui",
+	    }
+	  },
+          shim: {
+            typeahead: {
+              deps: ["jquery"],
+              exports: "typeahead"
+            },
+            underscore: {
+              exports: '_'
+            },
+            backbone: {
+              deps: ["underscore", "jquery"],
+              exports: "Backbone"
+            },
+            bootstrap: {
+              deps: ["jquery"],
+              exports: "bootstrap"
+            },
+            bootstraptour: {
+              deps: ["bootstrap"],
+              exports: "Tour"
+            },
+            "jquery-ui": {
+              deps: ["jquery"],
+              exports: "$"
+            }
+          },
+          waitSeconds: 30,
+      });
+
+      require.config({
+          map: {
+              '*':{
+                'contents': 'services/contents',
+              }
+          }
+      });
+
+      define("bootstrap", function () {
+          return window.$;
+      });
+
+      define("jquery", function () {
+          return window.$;
+      });
+
+      define("jqueryui", function () {
+          return window.$;
+      });
+
+      define("jquery-ui", function () {
+          return window.$;
+      });
+      // error-catching custom.js shim.
+      define("custom", function (require, exports, module) {
+          try {
+              var custom = require('custom/custom');
+              console.debug('loaded custom.js');
+              return custom;
+          } catch (e) {
+              console.error("error loading custom.js", e);
+              return {};
+          }
+      })
+    </script>
+
+    
+    
+
+<script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="services/contents" src="./Assignment 2_files/contents.js.download"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="custom/custom" src="./Assignment 2_files/custom.js.download"></script><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="nbextensions/submit_button/main" src="./Assignment 2_files/main.js.download"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="nbextensions/jupyter-js-widgets/extension" src="./Assignment 2_files/extension.js.download"></script><style type="text/css">.MathJax_Display {text-align: center; margin: 0; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax .merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MathJax .MJX-monospace {font-family: monospace}
+.MathJax .MJX-sans-serif {font-family: sans-serif}
+#MathJax_Tooltip {background-color: InfoBackground; color: InfoText; border: 1px solid black; box-shadow: 2px 2px 5px #AAAAAA; -webkit-box-shadow: 2px 2px 5px #AAAAAA; -moz-box-shadow: 2px 2px 5px #AAAAAA; -khtml-box-shadow: 2px 2px 5px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true'); padding: 3px 4px; z-index: 401; position: absolute; left: 0; top: 0; width: auto; height: auto; display: none}
+.MathJax {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax:focus, body :focus .MathJax {display: inline-table}
+.MathJax img, .MathJax nobr, .MathJax a {border: 0; padding: 0; margin: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; vertical-align: 0; line-height: normal; text-decoration: none}
+img.MathJax_strut {border: 0!important; padding: 0!important; margin: 0!important; vertical-align: 0!important}
+.MathJax span {display: inline; position: static; border: 0; padding: 0; margin: 0; vertical-align: 0; line-height: normal; text-decoration: none}
+.MathJax nobr {white-space: nowrap!important}
+.MathJax img {display: inline!important; float: none!important}
+.MathJax * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.MathJax_Processing {visibility: hidden; position: fixed; width: 0; height: 0; overflow: hidden}
+.MathJax_Processed {display: none!important}
+.MathJax_ExBox {display: block!important; overflow: hidden; width: 1px; height: 60ex; min-height: 0; max-height: none}
+.MathJax .MathJax_EmBox {display: block!important; overflow: hidden; width: 1px; height: 60em; min-height: 0; max-height: none}
+.MathJax .MathJax_HitBox {cursor: text; background: white; opacity: 0; filter: alpha(opacity=0)}
+.MathJax .MathJax_HitBox * {filter: none; opacity: 1; background: transparent}
+#MathJax_Tooltip * {filter: none; opacity: 1; background: transparent}
+@font-face {font-family: MathJax_Blank; src: url('about:blank')}
+.MathJax .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style><style type="text/css">.widget-modal-backdrop{position:absolute;left:0;top:0;width:100%;height:100%;background:#000;z-index:999;opacity:.5;display:flex;align-items:center;justify-content:center;flex-direction:column}.widget-modal-backdrop.widget-modal-hidden{display:none}.widget-modal-backdrop.widget-modal-hide{animation:fadeout .25s}.widget-modal-backdrop.widget-modal-show{animation:fadein .25s}@keyframes fadein{from{opacity:0}to{opacity:.5}}@keyframes fadeout{from{opacity:.5}to{opacity:0}}.widget-modal-text{color:#fff;font-size:x-large;font-weight:700}.widget-modal-text div,.widget-modal-text i{display:inline}.widget-modal-text div{padding-left:1ex}.widget-modal-progress{width:300px}.jupyter-widgets{margin:2px}.jupyter-widgets.widget-container{margin:0}.widget-area{page-break-inside:avoid;-webkit-box-orient:horizontal;-webkit-box-align:stretch;-moz-box-orient:horizontal;-moz-box-align:stretch;box-orient:horizontal;box-align:stretch;display:flex;flex-direction:row;align-items:stretch}.widget-area .widget-subarea{padding:.4em 0;box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;-webkit-box-flex:2;-moz-box-flex:2;box-flex:2;flex:2;-webkit-box-orient:vertical;-webkit-box-align:stretch;-moz-box-orient:vertical;-moz-box-align:stretch;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch}.widget-area.connection-problems .prompt:after{content:"\F127";font-family:FontAwesome;color:#d9534f;top:3px;padding:3px}.slide-track{border:1px solid #CCC;background:#FFF;border-radius:2px}.widget-hslider{width:300px}.widget-hslider .slider-container{padding-left:8px;padding-right:2px;overflow:visible;flex-grow:1;height:5px;max-height:5px;margin-top:15px;margin-bottom:12px;border:1px solid #CCC;background:#FFF;border-radius:2px;-webkit-box-orient:horizontal;-webkit-box-align:stretch;-moz-box-orient:horizontal;-moz-box-align:stretch;box-orient:horizontal;box-align:stretch;display:flex;flex-direction:row;align-items:stretch}.widget-hslider .slider-container .ui-slider{-webkit-box-orient:horizontal;-webkit-box-align:stretch;-moz-box-orient:horizontal;-moz-box-align:stretch;box-orient:horizontal;box-align:stretch;display:flex;flex-direction:row;align-items:stretch;-webkit-box-flex:1;-moz-box-flex:1;box-flex:1;flex:1;border:0;background:0 0}.widget-hslider .slider-container .ui-slider .ui-slider-handle{width:12px;height:28px;margin-top:-8px;border-radius:2px}.widget-hslider .slider-container .ui-slider .ui-slider-range{height:12px;margin-top:-4px}.widget-vslider{width:50px;height:250px}.widget-vslider .slider-container{padding-bottom:5px;overflow:visible;flex-grow:1;width:5px;max-width:5px;margin-left:auto;margin-right:auto;border:1px solid #CCC;background:#FFF;border-radius:2px;-webkit-box-orient:vertical;-webkit-box-align:stretch;-moz-box-orient:vertical;-moz-box-align:stretch;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch}.widget-vslider .slider-container .ui-slider{-webkit-box-orient:vertical;-webkit-box-align:stretch;-moz-box-orient:vertical;-moz-box-align:stretch;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch;-webkit-box-flex:1;-moz-box-flex:1;box-flex:1;flex:1;border:0;background:0 0;margin-left:-4px;margin-top:5px}.widget-vslider .slider-container .ui-slider .ui-slider-handle{width:28px;height:12px;margin-left:-9px;border-radius:2px}.widget-vslider .slider-container .ui-slider .ui-slider-range{width:12px;margin-left:-1px}.widget-colorpicker{width:300px;display:flex}.widget-colorpicker.short{width:148px}.widget-colorpicker .input-group{flex-grow:1}.jupyter-button{width:148px;box-shadow:0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12)}.jupyter-button.btn,.jupyter-button.btn.hover,.jupyter-button.btn:active,.jupyter-button.btn:focus{outline:0!important}.jupyter-button.btn:active{box-shadow:0 4px 5px 0 rgba(0,0,0,.14),0 1px 10px 0 rgba(0,0,0,.12),0 2px 4px -1px rgba(0,0,0,.2)}.widget-checkbox{width:148px}.widget-button,.widget-toggle-button{box-shadow:0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);width:148px;height:32px}.widget-button.btn,.widget-button.btn.hover,.widget-button.btn:active,.widget-button.btn:focus,.widget-toggle-button.btn,.widget-toggle-button.btn.hover,.widget-toggle-button.btn:active,.widget-toggle-button.btn:focus{outline:0!important}.widget-button.btn:active,.widget-toggle-button.btn:active{box-shadow:0 4px 5px 0 rgba(0,0,0,.14),0 1px 10px 0 rgba(0,0,0,.12),0 2px 4px -1px rgba(0,0,0,.2)}.widget-play{width:148px;display:flex;justify-content:space-between}.widget-play button{height:32px;width:48px}.widget-toggle-button{width:148px;box-shadow:0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12)}.widget-toggle-button.btn,.widget-toggle-button.btn.hover,.widget-toggle-button.btn:active,.widget-toggle-button.btn:focus,.widget-toggle-buttons .btn,.widget-toggle-buttons .btn.hover,.widget-toggle-buttons .btn:active,.widget-toggle-buttons .btn:focus{outline:0!important}.widget-toggle-buttons .btn.active{box-shadow:none!important}.widget-toggle-buttons .btn-group{box-shadow:0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12)}.widget-text{width:300px}.widget-textarea{width:300px}.widget-listbox{width:300px}.widget-select-multiple{width:300px}.widget-select-multiple select.form-control{margin-left:0;margin-right:0}.widget-dropdown{width:300px}.widget-dropdown .widget_item{display:flex;flex-grow:1}.widget-dropdown .widget-combo-btn{flex-grow:1;min-width:10px}.widget-dropdown .dropdown-menu{max-height:200px;overflow:hidden;overflow-y:auto;width:calc(275px)}.widget-hprogress{width:300px;height:32px}.widget-hprogress .progress{flex-grow:1;margin-top:auto;margin-bottom:auto}.widget-hprogress .progress-bar{-webkit-transition:none;-moz-transition:none;-ms-transition:none;-o-transition:none;transition:none}.widget-vprogress{height:250px;width:50px}.widget-vprogress .progress{flex-grow:1;width:12px;margin-left:auto;margin-right:auto;margin-bottom:0}.widget-vprogress .progress-bar{-webkit-transition:none;-moz-transition:none;-ms-transition:none;-o-transition:none;transition:none}.widget-combo-btn{min-width:123px}.widget_item .dropdown-menu li a{color:inherit}.widget-valid{margin:8px 5px 16px}.widget-hbox{-webkit-box-orient:horizontal;-webkit-box-align:stretch;-moz-box-orient:horizontal;-moz-box-align:stretch;box-orient:horizontal;box-align:stretch;display:flex;flex-direction:row;align-items:stretch}.widget-hbox input[type=checkbox]{margin-top:10px;margin-bottom:10px}.widget-hbox input[type=color]{height:32px;width:28px;padding:1px}.widget-hbox .widget-label{min-width:10ex;max-width:10ex;padding-right:8px;padding-top:5px;text-align:right;vertical-align:text-top;word-wrap:break-word}.widget-hbox .widget-readout{padding-left:4px;padding-top:5px;height:32px;text-align:center;vertical-align:text-top;min-width:7em;max-width:7em;margin-left:3px;overflow:hidden;white-space:nowrap}.widget-hbox .widget-readout.overflow{-webkit-box-shadow:0 0 0 1px rgba(77,0,0,.15);-moz-box-shadow:0 0 0 1px rgba(77,0,0,.15);box-shadow:0 0 0 1px rgba(77,0,0,.15)}.widget-vbox{-webkit-box-orient:vertical;-webkit-box-align:stretch;-moz-box-orient:vertical;-moz-box-align:stretch;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch}.widget-vbox input[type=color]{height:32px;padding:1px}.widget-vbox .widget-label{padding-bottom:5px;text-align:center;vertical-align:text-bottom}.widget-vbox .widget-readout{padding-top:5px;white-space:nowrap;text-align:center;vertical-align:text-top;margin-top:4px;overflow:hidden}.widget-vbox .widget-readout.overflow{-webkit-box-shadow:0 0 0 1px rgba(77,0,0,.15);-moz-box-shadow:0 0 0 1px rgba(77,0,0,.15);box-shadow:0 0 0 1px rgba(77,0,0,.15)}.widget-box{box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;-webkit-box-align:start;-moz-box-align:start;box-align:start;align-items:flex-start}.widget-radio-box{-webkit-box-orient:vertical;-webkit-box-align:stretch;-moz-box-orient:vertical;-moz-box-align:stretch;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch;box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;padding-top:4px}.widget-radio-box label{margin-top:2px;margin-bottom:2px;margin-left:22px}/*# sourceMappingURL=widgets.min.css.map */</style><style type="text/css">@font-face {font-family: STIXMathJax_Main-italic; src: url('https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/static/components/MathJax/fonts/HTML-CSS/STIX-Web/woff/STIXMathJax_Main-Italic.woff?rev=2.6.0') format('woff'), url('https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/static/components/MathJax/fonts/HTML-CSS/STIX-Web/otf/STIXMathJax_Main-Italic.otf?rev=2.6.0') format('opentype')}
+</style><style type="text/css">@font-face {font-family: STIXMathJax_Main; src: url('https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/static/components/MathJax/fonts/HTML-CSS/STIX-Web/woff/STIXMathJax_Main-Regular.woff?rev=2.6.0') format('woff'), url('https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/static/components/MathJax/fonts/HTML-CSS/STIX-Web/otf/STIXMathJax_Main-Regular.otf?rev=2.6.0') format('opentype')}
+</style></head><script>function inject(){function a(){function a(a){parent.postMessage({type:"blockedWindow",args:JSON.stringify(a)},l)}function b(a){var b=a[1];return null!=b&&["_blank","_parent","_self","_top"].indexOf(b)<0?b:null}function e(a,b){var c;for(c in a)try{void 0===b[c]&&(b[c]=a[c])}catch(d){}return b}var g=arguments,h=!0,j=null,k=null;if(null!=window.event&&(k=window.event.currentTarget),null==k){for(var m=g.callee;null!=m.arguments&&null!=m.arguments.callee.caller;)m=m.arguments.callee.caller;null!=m.arguments&&m.arguments.length>0&&null!=m.arguments[0].currentTarget&&(k=m.arguments[0].currentTarget)}null!=k&&(k instanceof Window||k===document||null!=k.URL&&null!=k.body||null!=k.nodeName&&("body"==k.nodeName.toLowerCase()||"#document"==k.nodeName.toLowerCase()))?(window.pbreason="Blocked a new window opened with URL: "+g[0]+" because it was triggered by the "+k.nodeName+" element",h=!1):h=!0;document.webkitFullscreenElement||document.mozFullscreenElement||document.fullscreenElement;if(((new Date).getTime()-d<1e3||isNaN(d)&&c())&&(window.pbreason="Blocked a new window opened with URL: "+g[0]+" because a full screen was just initiated while opening this url.",document.exitFullscreen?document.exitFullscreen():document.mozCancelFullScreen?document.mozCancelFullScreen():document.webkitCancelFullScreen&&document.webkitCancelFullScreen(),h=!1),1==h){j=f.apply(this,g);var n=b(g);if(null!=n&&(i[n]=j),j!==window){var o=(new Date).getTime(),p=j.blur;j.blur=function(){(new Date).getTime()-o<1e3?(window.pbreason="Blocked a new window opened with URL: "+g[0]+" because a it was blured",j.close(),a(g)):p()}}}else{var q={href:g[0]};q.replace=function(a){q.href=a},j={close:function(){return!0},test:function(){return!0},blur:function(){return!0},focus:function(){return!0},showModelessDialog:function(){return!0},showModalDialog:function(){return!0},prompt:function(){return!0},confirm:function(){return!0},alert:function(){return!0},moveTo:function(){return!0},moveBy:function(){return!0},resizeTo:function(){return!0},resizeBy:function(){return!0},scrollBy:function(){return!0},scrollTo:function(){return!0},getSelection:function(){return!0},onunload:function(){return!0},print:function(){return!0},open:function(){return this},opener:window,closed:!1,innerHeight:480,innerWidth:640,name:g[1],location:q,document:{location:q}},e(window,j),j.window=j;var n=b(g);if(null!=n)try{i[n].close()}catch(r){}setTimeout(function(){var b;b=j.location instanceof Object?j.document.location instanceof Object?null!=q.href?q.href:g[0]:j.document.location:j.location,g[0]=b,a(g)},100)}return j}function b(a){d=a?(new Date).getTime():0/0}function c(){return document.fullScreenElement&&null!==document.fullScreenElement||null!=document.mozFullscreenElement||null!=document.webkitFullscreenElement}var d,e="originalOpenFunction",f=window.open,g=document.createElement,h=document.createEvent,i={},j=0,k=null,l=window.location!=window.parent.location?document.referrer:document.location;window[e]=window.open,window.open=function(){try{return a.apply(this,arguments)}catch(b){return null}},document.createElement=function(){var a=g.apply(document,arguments);if("a"==arguments[0]||"A"==arguments[0]){j=(new Date).getTime();var b=a.dispatchEvent;a.dispatchEvent=function(c){return null!=c.type&&"click"==(""+c.type).toLocaleLowerCase()?(window.pbreason="blocked due to an explicit dispatchEvent event with type 'click' on an 'a' tag",parent.postMessage({type:"blockedWindow",args:JSON.stringify({0:a.href})},l),!0):b(c)},k=a}return a},document.createEvent=function(){try{return arguments[0].toLowerCase().indexOf("mouse")>=0&&(new Date).getTime()-j<=50?(window.pbreason="Blocked because 'a' element was recently created and "+arguments[0]+" event was created shortly after",arguments[0]=k.href,parent.postMessage({type:"blockedWindow",args:JSON.stringify({0:k.href})},l),null):h.apply(document,arguments)}catch(a){}},document.addEventListener("fullscreenchange",function(){b(document.fullscreen)},!1),document.addEventListener("mozfullscreenchange",function(){b(document.mozFullScreen)},!1),document.addEventListener("webkitfullscreenchange",function(){b(document.webkitIsFullScreen)},!1)} inject()</script>
+
+<body class="notebook_app  command_mode" data-base-url="/user/yracpdmrdlfafpmzrbykhd/" data-ws-url="" data-notebook-name="Assignment%202.ipynb" data-notebook-path="Assignment%202.ipynb"><div style="visibility: hidden; overflow: hidden; position: absolute; top: 0px; height: 1px; width: auto; padding: 0px; border: 0px; margin: 0px; text-align: left; text-indent: 0px; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal;"><div id="MathJax_Hidden"></div></div><div id="MathJax_Message" style="display: none;"></div>
+
+<noscript>
+    &lt;div id='noscript'&gt;
+      Jupyter Notebook requires JavaScript.&lt;br&gt;
+      Please enable it to proceed.
+  &lt;/div&gt;
+</noscript>
+
+<div id="header" style="display: block;">
+  <div id="header-container" class="container">
+  <div id="ipython_notebook" class="nav navbar-brand pull-left"><a href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/tree" title="dashboard">
+<img src="./Assignment 2_files/logo" alt="Jupyter Notebook">
+</a></div>
+
+  
+
+  
+  
+
+    <span id="login_widget">
+      
+        <button id="logout" class="btn btn-sm navbar-btn">Logout</button>
+      
+    </span>
+
+  
+
+  
+
+<a href="https://hub.coursera-notebooks.org/hub/home" class="btn btn-default btn-sm navbar-btn pull-right" style="margin-right: 4px; margin-left: 2px;">
+Control Panel</a>
+
+
+  
+
+
+<span id="save_widget" class="pull-left save_widget">
+    <span id="notebook_name" class="filename">Assignment 2</span>
+    <span class="checkpoint_status" title="Sun, Jan 1, 2017 9:52 PM">Last Checkpoint: 01/01/2017</span>
+    <span class="autosave_status">(autosaved)</span>
+</span>
+
+<span id="kernel_logo_widget">
+  
+  <img class="current_kernel_logo" src="./Assignment 2_files/logo-64x64.png" style="display: inline;">
+  
+</span>
+
+
+  </div>
+  <div class="header-bar"></div>
+
+  
+<div id="menubar-container" class="container">
+<div id="menubar">
+    <div id="menus" class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <button type="button" class="btn btn-default navbar-btn navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <i class="fa fa-bars"></i>
+              <span class="navbar-text">Menu</span>
+            </button>
+            <p id="kernel_indicator" class="navbar-text indicator_area">
+              <span class="kernel_indicator_name">Python 3</span>
+              <i id="kernel_indicator_icon" class="kernel_idle_icon" title="Kernel Idle"></i>
+            </p>
+            <i id="readonly-indicator" class="navbar-text" title="This notebook is read-only" style="display: none;">
+                <span class="fa-stack">
+                    <i class="fa fa-save fa-stack-1x"></i>
+                    <i class="fa fa-ban fa-stack-2x text-danger"></i>
+                </span>
+            </i>
+            <i id="modal_indicator" class="navbar-text modal_indicator" title="Command Mode"></i>
+            <span id="notification_area"><div id="notification_kernel" class="notification_widget btn btn-xs navbar-btn undefined info" style="display: none;"><span></span></div><div id="notification_notebook" class="notification_widget btn btn-xs navbar-btn" style="display: none;"><span></span></div><div id="notification_widgets" class="notification_widget btn btn-xs navbar-btn" style="display: none;"><span></span></div></span>
+            <div class="navbar-collapse collapse">
+              <ul class="nav navbar-nav">
+                <li class="dropdown"><a href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#" class="dropdown-toggle" data-toggle="dropdown">File</a>
+                    <ul id="file_menu" class="dropdown-menu">
+                        <li id="new_notebook" class="dropdown-submenu">
+                            <a href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#">New Notebook</a>
+                            <ul class="dropdown-menu" id="menu-new-notebook-submenu"><li id="new-notebook-submenu-python3"><a href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#">Python 3</a></li></ul>
+                        </li>
+                        <li id="open_notebook" title="Opens a new window with the Dashboard view">
+                            <a href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#">Open...</a></li>
+                        <!-- <hr/> -->
+                        <li class="divider"></li>
+                        <li id="copy_notebook" title="Open a copy of this notebook&#39;s contents and start a new kernel">
+                            <a href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#">Make a Copy...</a></li>
+                        <li id="rename_notebook"><a href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#">Rename...</a></li>
+                        <li id="save_checkpoint"><a href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#">Save and Checkpoint</a></li>
+                        <!-- <hr/> -->
+                        <li class="divider"></li>
+                        <li id="restore_checkpoint" class="dropdown-submenu"><a href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#">Revert to Checkpoint</a>
+                          <ul class="dropdown-menu"><li><a href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#">Sunday, January 1, 2017 9:52 PM</a></li></ul>
+                        </li>
+                        <li class="divider"></li>
+                        <li id="print_preview"><a href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#">Print Preview</a></li>
+                        <li class="dropdown-submenu"><a href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#">Download as</a>
+                            <ul class="dropdown-menu">
+                                <li id="download_ipynb"><a href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#">Notebook (.ipynb)</a></li>
+                                <li id="download_script"><a href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#">Python (.py)</a></li>
+                                <li id="download_html"><a href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#">HTML (.html)</a></li>
+                                <li id="download_markdown"><a href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#">Markdown (.md)</a></li>
+                                <li id="download_rst"><a href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#">reST (.rst)</a></li>
+                                <li id="download_pdf"><a href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#">PDF via LaTeX (.pdf)</a></li>
+                            </ul>
+                        </li>
+                        <li class="divider"></li>
+                        <li id="trust_notebook" title="Trust the output of this notebook">
+                            <a href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#">Trust Notebook</a></li>
+                        <li class="divider"></li>
+                        <li id="kill_and_exit" title="Shutdown this notebook&#39;s kernel, and close this window">
+                            <a href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#">Close and Halt</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown"><a href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#" class="dropdown-toggle" data-toggle="dropdown">Edit</a>
+                    <ul id="edit_menu" class="dropdown-menu">
+                        <li id="cut_cell"><a href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#">Cut Cells</a></li>
+                        <li id="copy_cell"><a href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#">Copy Cells</a></li>
+                        <li id="paste_cell_above" class="disabled"><a href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#">Paste Cells Above</a></li>
+                        <li id="paste_cell_below" class="disabled"><a href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#">Paste Cells Below</a></li>
+                        <li id="paste_cell_replace" class="disabled"><a href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#">Paste Cells &amp; Replace</a></li>
+                        <li id="delete_cell"><a href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#">Delete Cells</a></li>
+                        <li id="undelete_cell" class="disabled"><a href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#">Undo Delete Cells</a></li>
+                        <li class="divider"></li>
+                        <li id="split_cell"><a href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#">Split Cell</a></li>
+                        <li id="merge_cell_above"><a href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#">Merge Cell Above</a></li>
+                        <li id="merge_cell_below"><a href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#">Merge Cell Below</a></li>
+                        <li class="divider"></li>
+                        <li id="move_cell_up"><a href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#">Move Cell Up</a></li>
+                        <li id="move_cell_down"><a href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#">Move Cell Down</a></li>
+                        <li class="divider"></li>
+                        <li id="edit_nb_metadata"><a href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#">Edit Notebook Metadata</a></li>
+                        <li class="divider"></li>
+                        <li id="find_and_replace"><a href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#"> Find and Replace </a></li>
+                    </ul>
+                </li>
+                <li class="dropdown"><a href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#" class="dropdown-toggle" data-toggle="dropdown">View</a>
+                    <ul id="view_menu" class="dropdown-menu">
+                        <li id="toggle_header" title="Show/Hide the logo and notebook title (above menu bar)">
+                            <a href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#">Toggle Header</a></li>
+                        <li id="toggle_toolbar" title="Show/Hide the action icons (below menu bar)">
+                            <a href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#">Toggle Toolbar</a></li>
+                        <li id="menu-cell-toolbar" class="dropdown-submenu">
+                            <a href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#">Cell Toolbar</a>
+                            <ul class="dropdown-menu" id="menu-cell-toolbar-submenu"><li data-name="None"><a href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#">None</a></li><li data-name="Edit%20Metadata"><a href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#">Edit Metadata</a></li><li data-name="Raw%20Cell%20Format"><a href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#">Raw Cell Format</a></li><li data-name="Slideshow"><a href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#">Slideshow</a></li></ul>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown"><a href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#" class="dropdown-toggle" data-toggle="dropdown">Insert</a>
+                    <ul id="insert_menu" class="dropdown-menu">
+                        <li id="insert_cell_above" title="Insert an empty Code cell above the currently active cell">
+                            <a href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#">Insert Cell Above</a></li>
+                        <li id="insert_cell_below" title="Insert an empty Code cell below the currently active cell">
+                            <a href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#">Insert Cell Below</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown"><a href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#" class="dropdown-toggle" data-toggle="dropdown">Cell</a>
+                    <ul id="cell_menu" class="dropdown-menu">
+                        <li id="run_cell" title="Run this cell, and move cursor to the next one">
+                            <a href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#">Run Cells</a></li>
+                        <li id="run_cell_select_below" title="Run this cell, select below">
+                            <a href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#">Run Cells and Select Below</a></li>
+                        <li id="run_cell_insert_below" title="Run this cell, insert below">
+                            <a href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#">Run Cells and Insert Below</a></li>
+                        <li id="run_all_cells" title="Run all cells in the notebook">
+                            <a href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#">Run All</a></li>
+                        <li id="run_all_cells_above" title="Run all cells above (but not including) this cell">
+                            <a href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#">Run All Above</a></li>
+                        <li id="run_all_cells_below" title="Run this cell and all cells below it">
+                            <a href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#">Run All Below</a></li>
+                        <li class="divider"></li>
+                        <li id="change_cell_type" class="dropdown-submenu" title="All cells in the notebook have a cell type. By default, new cells are created as &#39;Code&#39; cells">
+                            <a href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#">Cell Type</a>
+                            <ul class="dropdown-menu">
+                              <li id="to_code" title="Contents will be sent to the kernel for execution, and output will display in the footer of cell">
+                                  <a href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#">Code</a></li>
+                              <li id="to_markdown" title="Contents will be rendered as HTML and serve as explanatory text">
+                                  <a href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#">Markdown</a></li>
+                              <li id="to_raw" title="Contents will pass through nbconvert unmodified">
+                                  <a href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#">Raw NBConvert</a></li>
+                            </ul>
+                        </li>
+                        <li class="divider"></li>
+                        <li id="current_outputs" class="dropdown-submenu"><a href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#">Current Outputs</a>
+                            <ul class="dropdown-menu">
+                                <li id="toggle_current_output" title="Hide/Show the output of the current cell">
+                                    <a href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#">Toggle</a>
+                                </li>
+                                <li id="toggle_current_output_scroll" title="Scroll the output of the current cell">
+                                    <a href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#">Toggle Scrolling</a>
+                                </li>
+                                <li id="clear_current_output" title="Clear the output of the current cell">
+                                    <a href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#">Clear</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li id="all_outputs" class="dropdown-submenu"><a href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#">All Output</a>
+                            <ul class="dropdown-menu">
+                                <li id="toggle_all_output" title="Hide/Show the output of all cells">
+                                    <a href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#">Toggle</a>
+                                </li>
+                                <li id="toggle_all_output_scroll" title="Scroll the output of all cells">
+                                    <a href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#">Toggle Scrolling</a>
+                                </li>
+                                <li id="clear_all_output" title="Clear the output of all cells">
+                                    <a href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#">Clear</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown"><a href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#" class="dropdown-toggle" data-toggle="dropdown">Kernel</a>
+                    <ul id="kernel_menu" class="dropdown-menu">
+                        <li id="int_kernel" title="Send KeyboardInterrupt (CTRL-C) to the Kernel">
+                            <a href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#">Interrupt</a>
+                        </li>
+                        <li id="restart_kernel" title="Restart the Kernel">
+                            <a href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#">Restart</a>
+                        </li>
+                        <li id="restart_clear_output" title="Restart the Kernel and clear all output">
+                            <a href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#">Restart &amp; Clear Output</a>
+                        </li>
+                        <li id="restart_run_all" title="Restart the Kernel and re-run the notebook">
+                            <a href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#">Restart &amp; Run All</a>
+                        </li>
+                        <li id="reconnect_kernel" title="Reconnect to the Kernel">
+                            <a href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#">Reconnect</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li id="menu-change-kernel" class="dropdown-submenu">
+                            <a href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#">Change kernel</a>
+                            <ul class="dropdown-menu" id="menu-change-kernel-submenu"><li id="kernel-submenu-python3"><a href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#">Python 3</a></li></ul>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown"><a href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#" data-toggle="dropdown" class="dropdown-toggle">Widgets</a><ul id="widget-submenu" class="dropdown-menu"><li title="Rasterizes the current state of the widgets to the notebook as PNG images."><a href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#">Save notebook with snapshots</a></li><li title="Download the widget state as a JSON file"><a href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#">Download widget state</a></li><li title="Embed interactive widgets"><a href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#">Embed widgets</a></li></ul></li><li class="dropdown"><a href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#" class="dropdown-toggle" data-toggle="dropdown">Help</a>
+                    <ul id="help_menu" class="dropdown-menu">
+                        
+                        <li id="notebook_tour" title="A quick tour of the notebook user interface"><a href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#">User Interface Tour</a></li>
+                        <li id="keyboard_shortcuts" title="Opens a tooltip with all keyboard shortcuts"><a href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#">Keyboard Shortcuts</a></li>
+                        <li class="divider"></li>
+                        
+
+                        
+                            
+                                <li><a rel="noreferrer" href="http://nbviewer.ipython.org/github/ipython/ipython/blob/3.x/examples/Notebook/Index.ipynb" target="_blank" title="Opens in a new window">
+                                
+                                    <i class="fa fa-external-link menu-icon pull-right"></i>
+                                
+
+                                Notebook Help
+                                </a></li>
+                            
+                                <li><a rel="noreferrer" href="https://help.github.com/articles/markdown-basics/" target="_blank" title="Opens in a new window">
+                                
+                                    <i class="fa fa-external-link menu-icon pull-right"></i>
+                                
+
+                                Markdown
+                                </a></li>
+                            
+                            
+                        
+                        <li id="kernel-help-links" class="divider"></li><li><a target="_blank" title="Opens in a new window" href="http://docs.python.org/3.5?v=20170123060915"><i class="fa fa-external-link menu-icon pull-right"></i><span>Python</span></a></li><li><a target="_blank" title="Opens in a new window" href="http://ipython.org/documentation.html?v=20170123060915"><i class="fa fa-external-link menu-icon pull-right"></i><span>IPython</span></a></li><li><a target="_blank" title="Opens in a new window" href="http://docs.scipy.org/doc/numpy/reference/?v=20170123060915"><i class="fa fa-external-link menu-icon pull-right"></i><span>NumPy</span></a></li><li><a target="_blank" title="Opens in a new window" href="http://docs.scipy.org/doc/scipy/reference/?v=20170123060915"><i class="fa fa-external-link menu-icon pull-right"></i><span>SciPy</span></a></li><li><a target="_blank" title="Opens in a new window" href="http://matplotlib.org/contents.html?v=20170123060915"><i class="fa fa-external-link menu-icon pull-right"></i><span>Matplotlib</span></a></li><li><a target="_blank" title="Opens in a new window" href="http://docs.sympy.org/latest/index.html?v=20170123060915"><i class="fa fa-external-link menu-icon pull-right"></i><span>SymPy</span></a></li><li><a target="_blank" title="Opens in a new window" href="http://pandas.pydata.org/pandas-docs/stable/?v=20170123060915"><i class="fa fa-external-link menu-icon pull-right"></i><span>pandas</span></a></li><li class="divider"></li>
+                        <li title="About Jupyter Notebook"><a id="notebook_about" href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#">About</a></li>
+                        
+                    </ul>
+                </li>
+              </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="maintoolbar" class="navbar">
+  <div class="toolbar-inner navbar-inner navbar-nobg">
+    <div id="maintoolbar-container" class="container toolbar"><div class="btn-group" id="save-notbook"><button class="btn btn-default" title="Save and Checkpoint" data-jupyter-action="jupyter-notebook:save-notebook"><i class="fa-save fa"></i></button></div><div class="btn-group" id="insert_above_below"><button class="btn btn-default" title="insert cell below" data-jupyter-action="jupyter-notebook:insert-cell-below"><i class="fa-plus fa"></i></button></div><div class="btn-group" id="cut_copy_paste"><button class="btn btn-default" title="cut selected cells" data-jupyter-action="jupyter-notebook:cut-cell"><i class="fa-cut fa"></i></button><button class="btn btn-default" title="copy selected cells" data-jupyter-action="jupyter-notebook:copy-cell"><i class="fa-copy fa"></i></button><button class="btn btn-default" title="paste cells below" data-jupyter-action="jupyter-notebook:paste-cell-below"><i class="fa-paste fa"></i></button></div><div class="btn-group" id="move_up_down"><button class="btn btn-default" title="move selected cells up" data-jupyter-action="jupyter-notebook:move-cell-up"><i class="fa-arrow-up fa"></i></button><button class="btn btn-default" title="move selected cells down" data-jupyter-action="jupyter-notebook:move-cell-down"><i class="fa-arrow-down fa"></i></button></div><div class="btn-group" id="run_int"><button class="btn btn-default" title="run cell, select below" data-jupyter-action="jupyter-notebook:run-cell-and-select-next"><i class="fa-step-forward fa"></i></button><button class="btn btn-default" title="interrupt kernel" data-jupyter-action="jupyter-notebook:interrupt-kernel"><i class="fa-stop fa"></i></button><button class="btn btn-default" title="restart the kernel (with dialog)" data-jupyter-action="jupyter-notebook:confirm-restart-kernel"><i class="fa-repeat fa"></i></button></div><select id="cell_type" class="form-control select-xs"><option value="code">Code</option><option value="markdown">Markdown</option><option value="raw">Raw NBConvert</option><option value="heading">Heading</option><option value="multiselect" disabled="disabled" style="display: none;">-</option></select><div class="btn-group"><button class="btn btn-default" title="open the command palette" data-jupyter-action="jupyter-notebook:show-command-palette"><i class="fa-keyboard-o fa"></i></button></div><div class="btn-group"><button title="show new celltoolbar selector location" class="btn btn-default">CellToolbar</button></div><div class="btn-group" id="submit-notebook-button-group" style="float:right"><button class="btn btn-default" title="Submit this notebook for grading." id="submit-notebook-button" style="background-color:rgb(42, 115, 204); color:white; padding:4px 8px">Submit Assignment</button></div></div>
+  </div>
+</div>
+</div>
+
+<div class="lower-header-bar"></div>
+
+</div>
+
+<div id="site" style="height: 857px; display: block;">
+
+
+<div id="ipython-main-app">
+    <div id="notebook_panel">
+        <div id="notebook" tabindex="-1"><div class="container" id="notebook-container"><div class="cell text_cell rendered selected" tabindex="2"><div class="prompt input_prompt"></div><div class="inner_cell"><div class="ctb_hideshow"><div class="celltoolbar"></div></div><div class="input_area"><div class="CodeMirror cm-s-default CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 5.59375px; left: 5.59375px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-vscrollbar" cm-not-content="true" style="bottom: 0px;"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-hscrollbar" cm-not-content="true"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; padding-right: 0px; padding-bottom: 0px; margin-bottom: -17px; border-right-width: 13px; min-height: 130px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-cursors"><div class="CodeMirror-cursor" style="left: 0px; top: 0px; height: 17px;">&nbsp;</div></div><div class="CodeMirror-code"><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;"><span class="cm-hr">---</span></span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;"><span class="cm-em">_You are currently looking at </span><span class="cm-strong cm-em">**version 1.2**</span><span class="cm-em"> of this notebook. To download notebooks and datafiles, as well as get help on Jupyter notebooks in the Coursera platform, visit the </span><span class="cm-em cm-link">[Jupyter Notebook FAQ]</span><span class="cm-string cm-url">(https://www.coursera.org/learn/python-data-analysis/resources/0dhYG)</span><span class="cm-em"> course resource._</span></span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;"><span class="cm-hr">---</span></span></pre></div></div></div></div></div><div style="position: absolute; height: 13px; width: 1px; top: 130px;"></div><div class="CodeMirror-gutters" style="display: none; height: 143px;"></div></div></div></div><div class="text_cell_render rendered_html" tabindex="-1"><hr>
+<p><em>You are currently looking at <strong>version 1.2</strong> of this notebook. To download notebooks and datafiles, as well as get help on Jupyter notebooks in the Coursera platform, visit the <a href="https://www.coursera.org/learn/python-data-analysis/resources/0dhYG" target="_blank">Jupyter Notebook FAQ</a> course resource.</em></p>
+<hr>
+</div></div></div><div class="cell text_cell unselected rendered" tabindex="2"><div class="prompt input_prompt"></div><div class="inner_cell"><div class="ctb_hideshow"><div class="celltoolbar"></div></div><div class="input_area"><div class="CodeMirror cm-s-default CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 5.59375px; left: 5.59375px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-vscrollbar" cm-not-content="true" style="bottom: 0px;"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-hscrollbar" cm-not-content="true"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; padding-right: 0px; padding-bottom: 0px; margin-bottom: -17px; border-right-width: 13px; min-height: 154px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-cursors"><div class="CodeMirror-cursor" style="left: 0px; top: 0px; height: 21px;">&nbsp;</div></div><div class="CodeMirror-code"><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;"><span class="cm-header cm-header-1"># Assignment 2 - Pandas Introduction</span></span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;">All questions are weighted the same in this assignment.</span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;"><span class="cm-header cm-header-2">## Part 1</span></span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;">The following code loads the olympics dataset (olympics.csv), which was derrived from the Wikipedia entry on <span class="cm-link">[All Time Olympic Games Medals]</span><span class="cm-string cm-url">(https://en.wikipedia.org/wiki/All-time_Olympic_Games_medal_table)</span>, and does some basic data cleaning. </span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;">The columns are organized as # of Summer games, Summer medals, # of Winter games, Winter medals, total # number of games, total # of medals. Use this dataset to answer the questions below.</span></pre></div></div></div></div></div><div style="position: absolute; height: 13px; width: 1px; top: 154px;"></div><div class="CodeMirror-gutters" style="display: none; height: 167px;"></div></div></div></div><div class="text_cell_render rendered_html" tabindex="-1"><h1 id="Assignment-2---Pandas-Introduction">Assignment 2 - Pandas Introduction<a class="anchor-link" href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#Assignment-2---Pandas-Introduction">¶</a></h1>
+<p>All questions are weighted the same in this assignment.</p>
+<h2 id="Part-1">Part 1<a class="anchor-link" href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#Part-1">¶</a></h2>
+<p>The following code loads the olympics dataset (olympics.csv), which was derrived from the Wikipedia entry on <a href="https://en.wikipedia.org/wiki/All-time_Olympic_Games_medal_table" target="_blank">All Time Olympic Games Medals</a>, and does some basic data cleaning. </p>
+<p>The columns are organized as # of Summer games, Summer medals, # of Winter games, Winter medals, total # number of games, total # of medals. Use this dataset to answer the questions below.</p>
+</div></div></div><div class="cell code_cell unselected rendered" tabindex="2"><div class="input"><div class="prompt input_prompt">In&nbsp;[4]:</div><div class="inner_cell"><div class="ctb_hideshow"><div class="celltoolbar"></div></div><div class="input_area"><div class="CodeMirror cm-s-ipython"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 5.59375px; left: 5.59375px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-vscrollbar" cm-not-content="true" style="bottom: 0px;"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-hscrollbar" cm-not-content="true"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; min-width: 888px; margin-bottom: -17px; border-right-width: 13px; min-height: 368px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-cursors"><div class="CodeMirror-cursor" style="left: 0px; top: 0px; height: 17px;">&nbsp;</div></div><div class="CodeMirror-code"><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;"><span class="cm-keyword">import</span> <span class="cm-variable">pandas</span> <span class="cm-keyword">as</span> <span class="cm-variable">pd</span></span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;"><span class="cm-variable">df</span> = <span class="cm-variable">pd</span>.<span class="cm-variable">read_csv</span>(<span class="cm-string">'olympics.csv'</span>, <span class="cm-variable">index_col</span>=<span class="cm-number">0</span>, <span class="cm-variable">skiprows</span>=<span class="cm-number">1</span>)</span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;"><span class="cm-keyword">for</span> <span class="cm-variable">col</span> <span class="cm-keyword">in</span> <span class="cm-variable">df</span>.<span class="cm-variable">columns</span>:</span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;">    <span class="cm-keyword">if</span> <span class="cm-variable">col</span>[:<span class="cm-number">2</span>]<span class="cm-operator">==</span><span class="cm-string">'01'</span>:</span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;">        <span class="cm-variable">df</span>.<span class="cm-variable">rename</span>(<span class="cm-variable">columns</span>={<span class="cm-variable">col</span>:<span class="cm-string">'Gold'</span><span class="cm-operator">+</span><span class="cm-variable">col</span>[<span class="cm-number">4</span>:]}, <span class="cm-variable">inplace</span>=<span class="cm-keyword">True</span>)</span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;">    <span class="cm-keyword">if</span> <span class="cm-variable">col</span>[:<span class="cm-number">2</span>]<span class="cm-operator">==</span><span class="cm-string">'02'</span>:</span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;">        <span class="cm-variable">df</span>.<span class="cm-variable">rename</span>(<span class="cm-variable">columns</span>={<span class="cm-variable">col</span>:<span class="cm-string">'Silver'</span><span class="cm-operator">+</span><span class="cm-variable">col</span>[<span class="cm-number">4</span>:]}, <span class="cm-variable">inplace</span>=<span class="cm-keyword">True</span>)</span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;">    <span class="cm-keyword">if</span> <span class="cm-variable">col</span>[:<span class="cm-number">2</span>]<span class="cm-operator">==</span><span class="cm-string">'03'</span>:</span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;">        <span class="cm-variable">df</span>.<span class="cm-variable">rename</span>(<span class="cm-variable">columns</span>={<span class="cm-variable">col</span>:<span class="cm-string">'Bronze'</span><span class="cm-operator">+</span><span class="cm-variable">col</span>[<span class="cm-number">4</span>:]}, <span class="cm-variable">inplace</span>=<span class="cm-keyword">True</span>)</span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;">    <span class="cm-keyword">if</span> <span class="cm-variable">col</span>[:<span class="cm-number">1</span>]<span class="cm-operator">==</span><span class="cm-string">'№'</span>:</span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;">        <span class="cm-variable">df</span>.<span class="cm-variable">rename</span>(<span class="cm-variable">columns</span>={<span class="cm-variable">col</span>:<span class="cm-string">'#'</span><span class="cm-operator">+</span><span class="cm-variable">col</span>[<span class="cm-number">1</span>:]}, <span class="cm-variable">inplace</span>=<span class="cm-keyword">True</span>)</span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;"><span class="cm-variable">names_ids</span> = <span class="cm-variable">df</span>.<span class="cm-variable">index</span>.<span class="cm-builtin">str</span>.<span class="cm-variable">split</span>(<span class="cm-string">'\s\('</span>) <span class="cm-comment"># split the index by '('</span></span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;"><span class="cm-variable">df</span>.<span class="cm-variable">index</span> = <span class="cm-variable">names_ids</span>.<span class="cm-builtin">str</span>[<span class="cm-number">0</span>] <span class="cm-comment"># the [0] element is the country name (new index) </span></span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;"><span class="cm-variable">df</span>[<span class="cm-string">'ID'</span>] = <span class="cm-variable">names_ids</span>.<span class="cm-builtin">str</span>[<span class="cm-number">1</span>].<span class="cm-builtin">str</span>[:<span class="cm-number">3</span>] <span class="cm-comment"># the [1] element is the abbreviation or ID (take first 3 characters from that)</span></span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;"><span class="cm-variable">df</span> = <span class="cm-variable">df</span>.<span class="cm-variable">drop</span>(<span class="cm-string">'Totals'</span>)</span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;"><span class="cm-variable">df</span>.<span class="cm-variable">head</span>()</span></pre></div></div></div></div></div><div style="position: absolute; height: 13px; width: 1px; top: 368px;"></div><div class="CodeMirror-gutters" style="display: none; height: 381px;"></div></div></div></div></div></div><div class="widget-area" style="display: none;"><div class="prompt"><button class="close">×</button></div><div class="widget-subarea"></div></div><div class="output_wrapper"><div class="out_prompt_overlay prompt" title="click to expand output; double click to hide output" style=""></div><div class="output" style=""><div class="output_area"><div class="prompt output_prompt">Out[4]:</div><div class="output_subarea output_html rendered_html output_result"><div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right">
+      <th></th>
+      <th># Summer</th>
+      <th>Gold</th>
+      <th>Silver</th>
+      <th>Bronze</th>
+      <th>Total</th>
+      <th># Winter</th>
+      <th>Gold.1</th>
+      <th>Silver.1</th>
+      <th>Bronze.1</th>
+      <th>Total.1</th>
+      <th># Games</th>
+      <th>Gold.2</th>
+      <th>Silver.2</th>
+      <th>Bronze.2</th>
+      <th>Combined total</th>
+      <th>ID</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Afghanistan</th>
+      <td>13</td>
+      <td>0</td>
+      <td>0</td>
+      <td>2</td>
+      <td>2</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>13</td>
+      <td>0</td>
+      <td>0</td>
+      <td>2</td>
+      <td>2</td>
+      <td>AFG</td>
+    </tr>
+    <tr>
+      <th>Algeria</th>
+      <td>12</td>
+      <td>5</td>
+      <td>2</td>
+      <td>8</td>
+      <td>15</td>
+      <td>3</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>15</td>
+      <td>5</td>
+      <td>2</td>
+      <td>8</td>
+      <td>15</td>
+      <td>ALG</td>
+    </tr>
+    <tr>
+      <th>Argentina</th>
+      <td>23</td>
+      <td>18</td>
+      <td>24</td>
+      <td>28</td>
+      <td>70</td>
+      <td>18</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>41</td>
+      <td>18</td>
+      <td>24</td>
+      <td>28</td>
+      <td>70</td>
+      <td>ARG</td>
+    </tr>
+    <tr>
+      <th>Armenia</th>
+      <td>5</td>
+      <td>1</td>
+      <td>2</td>
+      <td>9</td>
+      <td>12</td>
+      <td>6</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>11</td>
+      <td>1</td>
+      <td>2</td>
+      <td>9</td>
+      <td>12</td>
+      <td>ARM</td>
+    </tr>
+    <tr>
+      <th>Australasia</th>
+      <td>2</td>
+      <td>3</td>
+      <td>4</td>
+      <td>5</td>
+      <td>12</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>2</td>
+      <td>3</td>
+      <td>4</td>
+      <td>5</td>
+      <td>12</td>
+      <td>ANZ</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div></div><div class="btn btn-default output_collapsed" title="click to expand output" style="display: none;">. . .</div></div></div><div class="cell text_cell unselected rendered" tabindex="2"><div class="prompt input_prompt"></div><div class="inner_cell"><div class="ctb_hideshow"><div class="celltoolbar"></div></div><div class="input_area"><div class="CodeMirror cm-s-default CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 5.59375px; left: 5.59375px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-vscrollbar" cm-not-content="true" style="bottom: 0px;"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-hscrollbar" cm-not-content="true"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; padding-right: 0px; padding-bottom: 0px; margin-bottom: -17px; border-right-width: 13px; min-height: 97px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-cursors"><div class="CodeMirror-cursor" style="left: 0px; top: 0px; height: 18px;">&nbsp;</div></div><div class="CodeMirror-code"><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;"><span class="cm-header cm-header-3">### Question 0 (Example)</span></span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;">What is the first country in df?</span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;"><span class="cm-em">*This function should return a Series.*</span></span></pre></div></div></div></div></div><div style="position: absolute; height: 13px; width: 1px; top: 97px;"></div><div class="CodeMirror-gutters" style="display: none; height: 110px;"></div></div></div></div><div class="text_cell_render rendered_html" tabindex="-1"><h3 id="Question-0-(Example)">Question 0 (Example)<a class="anchor-link" href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#Question-0-(Example)">¶</a></h3>
+<p>What is the first country in df?</p>
+<p><em>This function should return a Series.</em></p>
+</div></div></div><div class="cell code_cell unselected rendered" tabindex="2"><div class="input"><div class="prompt input_prompt">In&nbsp;[3]:</div><div class="inner_cell"><div class="ctb_hideshow"><div class="celltoolbar"></div></div><div class="input_area"><div class="CodeMirror cm-s-ipython"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 5.59375px; left: 5.59375px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-vscrollbar" cm-not-content="true"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-hscrollbar" cm-not-content="true"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; min-width: 718.828px; margin-bottom: -17px; border-right-width: 13px; min-height: 181px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-cursors"><div class="CodeMirror-cursor" style="left: 0px; top: 0px; height: 17px;">&nbsp;</div></div><div class="CodeMirror-code"><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;"><span class="cm-comment"># You should write your whole answer within the function provided. The autograder will call</span></span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;"><span class="cm-comment"># this function and compare the return value against the correct solution value</span></span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;"><span class="cm-keyword">def</span> <span class="cm-def">answer_zero</span>():</span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;">    <span class="cm-comment"># This function returns the row for Afghanistan, which is a Series object. The assignment</span></span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;">    <span class="cm-comment"># question description will tell you the general format the autograder is expecting</span></span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;">    <span class="cm-keyword">return</span> <span class="cm-variable">df</span>.<span class="cm-variable">iloc</span>[<span class="cm-number">0</span>]</span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;"><span class="cm-comment"># You can examine what your function returns by calling it in the cell. If you have questions</span></span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;"><span class="cm-comment"># about the assignment formats, check out the discussion forums for any FAQs</span></span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;"><span class="cm-variable">answer_zero</span>() </span></pre></div></div></div></div></div><div style="position: absolute; height: 13px; width: 1px; top: 181px;"></div><div class="CodeMirror-gutters" style="display: none; height: 194px;"></div></div></div></div></div></div><div class="widget-area" style="display: none;"><div class="prompt"><button class="close">×</button></div><div class="widget-subarea"></div></div><div class="output_wrapper"><div class="out_prompt_overlay prompt" title="click to expand output; double click to hide output" style=""></div><div class="output" style=""><div class="output_area"><div class="prompt output_prompt">Out[3]:</div><div class="output_subarea output_text output_result"><pre># Summer           13
+Gold                0
+Silver              0
+Bronze              2
+Total               2
+# Winter            0
+Gold.1              0
+Silver.1            0
+Bronze.1            0
+Total.1             0
+# Games            13
+Gold.2              0
+Silver.2            0
+Bronze.2            2
+Combined total      2
+ID                AFG
+Name: Afghanistan, dtype: object</pre></div></div></div><div class="btn btn-default output_collapsed" title="click to expand output" style="display: none;">. . .</div></div></div><div class="cell text_cell unselected rendered" tabindex="2"><div class="prompt input_prompt"></div><div class="inner_cell"><div class="ctb_hideshow"><div class="celltoolbar"></div></div><div class="input_area"><div class="CodeMirror cm-s-default CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 5.59375px; left: 5.59375px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-vscrollbar" cm-not-content="true" style="bottom: 0px;"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-hscrollbar" cm-not-content="true"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; padding-right: 0px; padding-bottom: 0px; margin-bottom: -17px; border-right-width: 13px; min-height: 80px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-cursors"><div class="CodeMirror-cursor" style="left: 0px; top: 0px; height: 18px;">&nbsp;</div></div><div class="CodeMirror-code"><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;"><span class="cm-header cm-header-3">### Question 1</span></span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;">Which country has won the most gold medals in summer games?</span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;"><span class="cm-em">*This function should return a single string value.*</span></span></pre></div></div></div></div></div><div style="position: absolute; height: 13px; width: 1px; top: 80px;"></div><div class="CodeMirror-gutters" style="display: none; height: 93px;"></div></div></div></div><div class="text_cell_render rendered_html" tabindex="-1"><h3 id="Question-1">Question 1<a class="anchor-link" href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#Question-1">¶</a></h3>
+<p>Which country has won the most gold medals in summer games?</p>
+<p><em>This function should return a single string value.</em></p>
+</div></div></div><div class="cell code_cell unselected rendered" tabindex="2"><div class="input"><div class="prompt input_prompt">In&nbsp;[79]:</div><div class="inner_cell"><div class="ctb_hideshow"><div class="celltoolbar"></div></div><div class="input_area"><div class="CodeMirror cm-s-ipython"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 5.59375px; left: 5.59375px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-vscrollbar" cm-not-content="true"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-hscrollbar" cm-not-content="true"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; min-width: 210.75px; margin-bottom: -17px; border-right-width: 13px; min-height: 79px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-cursors"><div class="CodeMirror-cursor" style="left: 0px; top: 0px; height: 17px;">&nbsp;</div></div><div class="CodeMirror-code"><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;"><span class="cm-keyword">def</span> <span class="cm-def">answer_one</span>():</span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;">    </span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;">    <span class="cm-keyword">return</span> <span class="cm-variable">df</span>.<span class="cm-variable">Gold</span>.<span class="cm-variable">idxmax</span>()</span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;"><span class="cm-variable">answer_one</span>()</span></pre></div></div></div></div></div><div style="position: absolute; height: 13px; width: 1px; top: 79px;"></div><div class="CodeMirror-gutters" style="display: none; height: 92px;"></div></div></div></div></div></div><div class="widget-area" style="display: none;"><div class="prompt"><button class="close">×</button></div><div class="widget-subarea"></div></div><div class="output_wrapper"><div class="out_prompt_overlay prompt" title="click to expand output; double click to hide output" style=""></div><div class="output" style=""><div class="output_area"><div class="prompt output_prompt">Out[79]:</div><div class="output_subarea output_text output_result"><pre>'United States'</pre></div></div></div><div class="btn btn-default output_collapsed" title="click to expand output" style="display: none;">. . .</div></div></div><div class="cell text_cell unselected rendered" tabindex="2"><div class="prompt input_prompt"></div><div class="inner_cell"><div class="ctb_hideshow"><div class="celltoolbar"></div></div><div class="input_area"><div class="CodeMirror cm-s-default CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 5.59375px; left: 5.59375px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-vscrollbar" cm-not-content="true" style="bottom: 0px;"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-hscrollbar" cm-not-content="true"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; padding-right: 0px; padding-bottom: 0px; margin-bottom: -17px; border-right-width: 13px; min-height: 80px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-cursors"><div class="CodeMirror-cursor" style="left: 0px; top: 0px; height: 18px;">&nbsp;</div></div><div class="CodeMirror-code"><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;"><span class="cm-header cm-header-3">### Question 2</span></span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;">Which country had the biggest difference between their summer and winter gold medal counts?</span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;"><span class="cm-em">*This function should return a single string value.*</span></span></pre></div></div></div></div></div><div style="position: absolute; height: 13px; width: 1px; top: 80px;"></div><div class="CodeMirror-gutters" style="display: none; height: 93px;"></div></div></div></div><div class="text_cell_render rendered_html" tabindex="-1"><h3 id="Question-2">Question 2<a class="anchor-link" href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#Question-2">¶</a></h3>
+<p>Which country had the biggest difference between their summer and winter gold medal counts?</p>
+<p><em>This function should return a single string value.</em></p>
+</div></div></div><div class="cell code_cell unselected rendered" tabindex="2"><div class="input"><div class="prompt input_prompt">In&nbsp;[80]:</div><div class="inner_cell"><div class="ctb_hideshow"><div class="celltoolbar"></div></div><div class="input_area"><div class="CodeMirror cm-s-ipython"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 5.59375px; left: 5.59375px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-vscrollbar" cm-not-content="true"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-hscrollbar" cm-not-content="true"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; min-width: 318.484px; margin-bottom: -17px; border-right-width: 13px; min-height: 79px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-cursors"><div class="CodeMirror-cursor" style="left: 0px; top: 0px; height: 17px;">&nbsp;</div></div><div class="CodeMirror-code"><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;"><span class="cm-keyword">def</span> <span class="cm-def">answer_two</span>():</span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;">    <span class="cm-variable">df</span>[<span class="cm-string">'Diff'</span>] = <span class="cm-variable">df</span>[<span class="cm-string">'Gold'</span>] <span class="cm-operator">-</span><span class="cm-variable">df</span>[<span class="cm-string">'Gold.1'</span>]</span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;">    <span class="cm-keyword">return</span> <span class="cm-variable">df</span>[<span class="cm-string">'Diff'</span>].<span class="cm-variable">idxmax</span>()</span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;"><span class="cm-variable">answer_two</span>()</span></pre></div></div></div></div></div><div style="position: absolute; height: 13px; width: 1px; top: 79px;"></div><div class="CodeMirror-gutters" style="display: none; height: 92px;"></div></div></div></div></div></div><div class="widget-area" style="display: none;"><div class="prompt"><button class="close">×</button></div><div class="widget-subarea"></div></div><div class="output_wrapper"><div class="out_prompt_overlay prompt" title="click to expand output; double click to hide output" style=""></div><div class="output" style=""><div class="output_area"><div class="prompt output_prompt">Out[80]:</div><div class="output_subarea output_text output_result"><pre>'United States'</pre></div></div></div><div class="btn btn-default output_collapsed" title="click to expand output" style="display: none;">. . .</div></div></div><div class="cell text_cell unselected rendered" tabindex="2"><div class="prompt input_prompt"></div><div class="inner_cell"><div class="ctb_hideshow"><div class="celltoolbar"></div></div><div class="input_area"><div class="CodeMirror cm-s-default CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 5.59375px; left: 5.59375px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-vscrollbar" cm-not-content="true" style="bottom: 0px;"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-hscrollbar" cm-not-content="true"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; padding-right: 0px; padding-bottom: 0px; margin-bottom: -17px; border-right-width: 13px; min-height: 165px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-cursors"><div class="CodeMirror-cursor" style="left: 0px; top: 0px; height: 18px;">&nbsp;</div></div><div class="CodeMirror-code"><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;"><span class="cm-header cm-header-3">### Question 3</span></span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;">Which country has the biggest difference between their summer gold medal counts and winter gold medal counts relative to their total gold medal count? </span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;"><span class="cm-delimit cm-delimit-open">$</span><span class="cm-delimit cm-delimit-close">$</span>\frac{Summer~Gold - Winter~Gold}{Total~Gold}<span class="cm-delimit cm-delimit-open">$</span><span class="cm-delimit cm-delimit-close">$</span></span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;">Only include countries that have won at least 1 gold in both summer and winter.</span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;"><span class="cm-em">*This function should return a single string value.*</span></span></pre></div></div></div></div></div><div style="position: absolute; height: 13px; width: 1px; top: 165px;"></div><div class="CodeMirror-gutters" style="display: none; height: 178px;"></div></div></div></div><div class="text_cell_render rendered_html" tabindex="-1"><h3 id="Question-3">Question 3<a class="anchor-link" href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#Question-3">¶</a></h3>
+<p>Which country has the biggest difference between their summer gold medal counts and winter gold medal counts relative to their total gold medal count? </p>
+<p><span class="MathJax_Preview" style="color: inherit;"></span><div class="MathJax_Display" style="text-align: center;"><span class="MathJax" id="MathJax-Element-1-Frame" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot; display=&quot;block&quot;&gt;&lt;mfrac&gt;&lt;mrow&gt;&lt;mi&gt;S&lt;/mi&gt;&lt;mi&gt;u&lt;/mi&gt;&lt;mi&gt;m&lt;/mi&gt;&lt;mi&gt;m&lt;/mi&gt;&lt;mi&gt;e&lt;/mi&gt;&lt;mi&gt;r&lt;/mi&gt;&lt;mtext&gt;&amp;#xA0;&lt;/mtext&gt;&lt;mi&gt;G&lt;/mi&gt;&lt;mi&gt;o&lt;/mi&gt;&lt;mi&gt;l&lt;/mi&gt;&lt;mi&gt;d&lt;/mi&gt;&lt;mo&gt;&amp;#x2212;&lt;/mo&gt;&lt;mi&gt;W&lt;/mi&gt;&lt;mi&gt;i&lt;/mi&gt;&lt;mi&gt;n&lt;/mi&gt;&lt;mi&gt;t&lt;/mi&gt;&lt;mi&gt;e&lt;/mi&gt;&lt;mi&gt;r&lt;/mi&gt;&lt;mtext&gt;&amp;#xA0;&lt;/mtext&gt;&lt;mi&gt;G&lt;/mi&gt;&lt;mi&gt;o&lt;/mi&gt;&lt;mi&gt;l&lt;/mi&gt;&lt;mi&gt;d&lt;/mi&gt;&lt;/mrow&gt;&lt;mrow&gt;&lt;mi&gt;T&lt;/mi&gt;&lt;mi&gt;o&lt;/mi&gt;&lt;mi&gt;t&lt;/mi&gt;&lt;mi&gt;a&lt;/mi&gt;&lt;mi&gt;l&lt;/mi&gt;&lt;mtext&gt;&amp;#xA0;&lt;/mtext&gt;&lt;mi&gt;G&lt;/mi&gt;&lt;mi&gt;o&lt;/mi&gt;&lt;mi&gt;l&lt;/mi&gt;&lt;mi&gt;d&lt;/mi&gt;&lt;/mrow&gt;&lt;/mfrac&gt;&lt;/math&gt;" role="presentation" style="position: relative;"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-1" role="math" style="width: 14.646em; display: inline-block;"><span style="display: inline-block; position: relative; width: 12.205em; height: 0px; font-size: 120%;"><span style="position: absolute; clip: rect(0.658em 1012.21em 3.098em -999.997em); top: -2.199em; left: 0.003em;"><span class="mrow" id="MathJax-Span-2"><span class="mfrac" id="MathJax-Span-3"><span style="display: inline-block; position: relative; width: 11.967em; height: 0px; margin-right: 0.122em; margin-left: 0.122em;"><span style="position: absolute; clip: rect(3.158em 1011.85em 4.17em -999.997em); top: -4.64em; left: 50%; margin-left: -5.949em;"><span class="mrow" id="MathJax-Span-4"><span class="mi" id="MathJax-Span-5" style="font-family: STIXMathJax_Main-italic;">S<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.003em;"></span></span><span class="mi" id="MathJax-Span-6" style="font-family: STIXMathJax_Main-italic;">u</span><span class="mi" id="MathJax-Span-7" style="font-family: STIXMathJax_Main-italic;">m</span><span class="mi" id="MathJax-Span-8" style="font-family: STIXMathJax_Main-italic;">m</span><span class="mi" id="MathJax-Span-9" style="font-family: STIXMathJax_Main-italic;">e</span><span class="mi" id="MathJax-Span-10" style="font-family: STIXMathJax_Main-italic;">r<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.003em;"></span></span><span class="mtext" id="MathJax-Span-11" style="font-family: STIXMathJax_Main;">&nbsp;</span><span class="mi" id="MathJax-Span-12" style="font-family: STIXMathJax_Main-italic;">G</span><span class="mi" id="MathJax-Span-13" style="font-family: STIXMathJax_Main-italic;">o</span><span class="mi" id="MathJax-Span-14" style="font-family: STIXMathJax_Main-italic;">l<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.003em;"></span></span><span class="mi" id="MathJax-Span-15" style="font-family: STIXMathJax_Main-italic;">d<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.003em;"></span></span><span class="mo" id="MathJax-Span-16" style="font-family: STIXMathJax_Main; padding-left: 0.241em;">−</span><span class="mi" id="MathJax-Span-17" style="font-family: STIXMathJax_Main-italic; padding-left: 0.241em;">W<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.063em;"></span></span><span class="mi" id="MathJax-Span-18" style="font-family: STIXMathJax_Main-italic;">i</span><span class="mi" id="MathJax-Span-19" style="font-family: STIXMathJax_Main-italic;">n</span><span class="mi" id="MathJax-Span-20" style="font-family: STIXMathJax_Main-italic;">t<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.003em;"></span></span><span class="mi" id="MathJax-Span-21" style="font-family: STIXMathJax_Main-italic;">e</span><span class="mi" id="MathJax-Span-22" style="font-family: STIXMathJax_Main-italic;">r<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.003em;"></span></span><span class="mtext" id="MathJax-Span-23" style="font-family: STIXMathJax_Main;">&nbsp;</span><span class="mi" id="MathJax-Span-24" style="font-family: STIXMathJax_Main-italic;">G</span><span class="mi" id="MathJax-Span-25" style="font-family: STIXMathJax_Main-italic;">o</span><span class="mi" id="MathJax-Span-26" style="font-family: STIXMathJax_Main-italic;">l<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.003em;"></span></span><span class="mi" id="MathJax-Span-27" style="font-family: STIXMathJax_Main-italic;">d<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.003em;"></span></span></span><span style="display: inline-block; width: 0px; height: 3.991em;"></span></span><span style="position: absolute; clip: rect(3.158em 1004.47em 4.17em -999.997em); top: -3.271em; left: 50%; margin-left: -2.259em;"><span class="mrow" id="MathJax-Span-28"><span class="mi" id="MathJax-Span-29" style="font-family: STIXMathJax_Main-italic;">T<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.063em;"></span></span><span class="mi" id="MathJax-Span-30" style="font-family: STIXMathJax_Main-italic;">o</span><span class="mi" id="MathJax-Span-31" style="font-family: STIXMathJax_Main-italic;">t<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.003em;"></span></span><span class="mi" id="MathJax-Span-32" style="font-family: STIXMathJax_Main-italic;">a</span><span class="mi" id="MathJax-Span-33" style="font-family: STIXMathJax_Main-italic;">l<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.003em;"></span></span><span class="mtext" id="MathJax-Span-34" style="font-family: STIXMathJax_Main;">&nbsp;</span><span class="mi" id="MathJax-Span-35" style="font-family: STIXMathJax_Main-italic;">G</span><span class="mi" id="MathJax-Span-36" style="font-family: STIXMathJax_Main-italic;">o</span><span class="mi" id="MathJax-Span-37" style="font-family: STIXMathJax_Main-italic;">l<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.003em;"></span></span><span class="mi" id="MathJax-Span-38" style="font-family: STIXMathJax_Main-italic;">d<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.003em;"></span></span></span><span style="display: inline-block; width: 0px; height: 3.991em;"></span></span><span style="position: absolute; clip: rect(0.836em 1011.97em 1.253em -999.997em); top: -1.307em; left: 0.003em;"><span style="display: inline-block; overflow: hidden; vertical-align: 0.003em; border-top: 1.3px solid; width: 11.967em; height: 0px;"></span><span style="display: inline-block; width: 0px; height: 1.074em;"></span></span></span></span></span><span style="display: inline-block; width: 0px; height: 2.205em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.925em; border-left: 0px solid; width: 0px; height: 2.646em;"></span></span></nobr><span class="MJX_Assistive_MathML MJX_Assistive_MathML_Block" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mfrac><mrow><mi>S</mi><mi>u</mi><mi>m</mi><mi>m</mi><mi>e</mi><mi>r</mi><mtext>&nbsp;</mtext><mi>G</mi><mi>o</mi><mi>l</mi><mi>d</mi><mo>−</mo><mi>W</mi><mi>i</mi><mi>n</mi><mi>t</mi><mi>e</mi><mi>r</mi><mtext>&nbsp;</mtext><mi>G</mi><mi>o</mi><mi>l</mi><mi>d</mi></mrow><mrow><mi>T</mi><mi>o</mi><mi>t</mi><mi>a</mi><mi>l</mi><mtext>&nbsp;</mtext><mi>G</mi><mi>o</mi><mi>l</mi><mi>d</mi></mrow></mfrac></math></span></span></div><script type="math/tex; mode=display" id="MathJax-Element-1">\frac{Summer~Gold - Winter~Gold}{Total~Gold}</script></p>
+<p>Only include countries that have won at least 1 gold in both summer and winter.</p>
+<p><em>This function should return a single string value.</em></p>
+</div></div></div><div class="cell code_cell unselected rendered" tabindex="2"><div class="input"><div class="prompt input_prompt">In&nbsp;[153]:</div><div class="inner_cell"><div class="ctb_hideshow"><div class="celltoolbar"></div></div><div class="input_area"><div class="CodeMirror cm-s-ipython"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 5.59375px; left: 5.59375px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-vscrollbar" cm-not-content="true"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-hscrollbar" cm-not-content="true"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; min-width: 464.656px; margin-bottom: -17px; border-right-width: 13px; min-height: 113px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-cursors"><div class="CodeMirror-cursor" style="left: 0px; top: 0px; height: 17px;">&nbsp;</div></div><div class="CodeMirror-code"><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;"><span class="cm-keyword">def</span> <span class="cm-def">answer_three</span>():</span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;">    <span class="cm-variable">Atleast_gold</span> = <span class="cm-variable">df</span>.<span class="cm-variable">where</span>(<span class="cm-variable">df</span>[<span class="cm-string">'Gold'</span>]<span class="cm-operator">&gt;</span><span class="cm-number">1</span> <span class="cm-operator">&amp;</span> (<span class="cm-variable">df</span>[<span class="cm-string">'Gold.1'</span>]<span class="cm-operator">&gt;</span><span class="cm-number">0</span>))</span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;">    <span class="cm-variable">Atleast_gold</span> = <span class="cm-variable">Atleast_gold</span>.<span class="cm-variable">dropna</span>()</span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;">    <span class="cm-variable">Rel</span> = <span class="cm-variable">df</span>[<span class="cm-string">'Diff'</span>]<span class="cm-operator">/</span><span class="cm-variable">df</span>[<span class="cm-string">'Gold.2'</span>]</span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;">    <span class="cm-keyword">return</span> <span class="cm-variable">Rel</span>.<span class="cm-variable">idxmax</span>()</span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;"><span class="cm-variable">answer_three</span>()</span></pre></div></div></div></div></div><div style="position: absolute; height: 13px; width: 1px; top: 113px;"></div><div class="CodeMirror-gutters" style="display: none; height: 126px;"></div></div></div></div></div></div><div class="widget-area" style="display: none;"><div class="prompt"><button class="close">×</button></div><div class="widget-subarea"></div></div><div class="output_wrapper"><div class="out_prompt_overlay prompt" title="click to expand output; double click to hide output" style=""></div><div class="output" style=""><div class="output_area"><div class="prompt output_prompt">Out[153]:</div><div class="output_subarea output_text output_result"><pre>'Algeria'</pre></div></div></div><div class="btn btn-default output_collapsed" title="click to expand output" style="display: none;">. . .</div></div></div><div class="cell text_cell unselected rendered" tabindex="2"><div class="prompt input_prompt"></div><div class="inner_cell"><div class="ctb_hideshow"><div class="celltoolbar"></div></div><div class="input_area"><div class="CodeMirror cm-s-default CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 5.59375px; left: 5.59375px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-vscrollbar" cm-not-content="true" style="bottom: 0px;"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-hscrollbar" cm-not-content="true"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; padding-right: 0px; padding-bottom: 0px; margin-bottom: -17px; border-right-width: 13px; min-height: 114px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-cursors"><div class="CodeMirror-cursor" style="left: 0px; top: 0px; height: 18px;">&nbsp;</div></div><div class="CodeMirror-code"><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;"><span class="cm-header cm-header-3">### Question 4</span></span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;">Write a function that creates a Series called "Points" which is a weighted value where each gold medal (<span class="cm-comment">`Gold.2`</span>) counts for 3 points, silver medals (<span class="cm-comment">`Silver.2`</span>) for 2 points, and bronze medals (<span class="cm-comment">`Bronze.2`</span>) for 1 point. The function should return only the column (a Series object) which you created.</span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;"><span class="cm-em">*This function should return a Series named </span><span class="cm-em cm-comment">`Points`</span><span class="cm-em"> of length 146*</span></span></pre></div></div></div></div></div><div style="position: absolute; height: 13px; width: 1px; top: 114px;"></div><div class="CodeMirror-gutters" style="display: none; height: 127px;"></div></div></div></div><div class="text_cell_render rendered_html" tabindex="-1"><h3 id="Question-4">Question 4<a class="anchor-link" href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#Question-4">¶</a></h3>
+<p>Write a function that creates a Series called "Points" which is a weighted value where each gold medal (<code>Gold.2</code>) counts for 3 points, silver medals (<code>Silver.2</code>) for 2 points, and bronze medals (<code>Bronze.2</code>) for 1 point. The function should return only the column (a Series object) which you created.</p>
+<p><em>This function should return a Series named <code>Points</code> of length 146</em></p>
+</div></div></div><div class="cell code_cell unselected rendered" tabindex="2"><div class="input"><div class="prompt input_prompt">In&nbsp;[67]:</div><div class="inner_cell"><div class="ctb_hideshow"><div class="celltoolbar"></div></div><div class="input_area"><div class="CodeMirror cm-s-ipython"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 5.59375px; left: 5.59375px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-vscrollbar" cm-not-content="true"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-hscrollbar" cm-not-content="true"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; min-width: 487.719px; margin-bottom: -17px; border-right-width: 13px; min-height: 79px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-cursors"><div class="CodeMirror-cursor" style="left: 0px; top: 0px; height: 17px;">&nbsp;</div></div><div class="CodeMirror-code"><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;"><span class="cm-keyword">def</span> <span class="cm-def">answer_four</span>():</span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;">    <span class="cm-variable">Points</span> = <span class="cm-variable">df</span>[<span class="cm-string">'Gold.2'</span>]<span class="cm-operator">*</span><span class="cm-number">3</span> <span class="cm-operator">+</span> <span class="cm-variable">df</span>[<span class="cm-string">'Silver.2'</span>]<span class="cm-operator">*</span><span class="cm-number">2</span> <span class="cm-operator">+</span> <span class="cm-variable">df</span>[<span class="cm-string">'Bronze.2'</span>]</span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;">    <span class="cm-keyword">return</span> <span class="cm-variable">pd</span>.<span class="cm-variable">Series</span>(<span class="cm-variable">Points</span>)</span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;"><span class="cm-variable">answer_four</span>()</span></pre></div></div></div></div></div><div style="position: absolute; height: 13px; width: 1px; top: 79px;"></div><div class="CodeMirror-gutters" style="display: none; height: 92px;"></div></div></div></div></div></div><div class="widget-area" style="display: none;"><div class="prompt"><button class="close">×</button></div><div class="widget-subarea"></div></div><div class="output_wrapper"><div class="out_prompt_overlay prompt" title="click to expand output; double click to hide output" style=""></div><div class="output" style=""><div class="output_area"><div class="prompt output_prompt">Out[67]:</div><div class="output_subarea output_text output_result"><pre>Afghanistan                            2
+Algeria                               27
+Argentina                            130
+Armenia                               16
+Australasia                           22
+Australia                            919
+Austria                              488
+Azerbaijan                            43
+Bahamas                               24
+Bahrain                                1
+Barbados                               1
+Belarus                              149
+Belgium                              273
+Bermuda                                1
+Bohemia                                5
+Botswana                               2
+Brazil                               184
+British West Indies                    2
+Bulgaria                             408
+Burundi                                3
+Cameroon                              12
+Canada                               794
+Chile                                 24
+China                               1101
+Colombia                              29
+Costa Rica                             7
+Ivory Coast                            2
+Croatia                               66
+Cuba                                 420
+Cyprus                                 2
+                                    ... 
+Spain                                267
+Sri Lanka                              4
+Sudan                                  2
+Suriname                               4
+Sweden                              1163
+Switzerland                          582
+Syria                                  6
+Chinese Taipei                        32
+Tajikistan                             4
+Tanzania                               4
+Thailand                              44
+Togo                                   1
+Tonga                                  2
+Trinidad and Tobago                   27
+Tunisia                               19
+Turkey                               191
+Uganda                                14
+Ukraine                              216
+United Arab Emirates                   3
+United States                       5600
+Uruguay                               16
+Uzbekistan                            38
+Venezuela                             18
+Vietnam                                4
+Virgin Islands                         2
+Yugoslavia                           170
+Independent Olympic Participants       4
+Zambia                                 3
+Zimbabwe                              18
+Mixed team                            38
+dtype: int64</pre></div></div></div><div class="btn btn-default output_collapsed" title="click to expand output" style="display: none;">. . .</div></div></div><div class="cell text_cell unselected rendered" tabindex="2"><div class="prompt input_prompt"></div><div class="inner_cell"><div class="ctb_hideshow"><div class="celltoolbar"></div></div><div class="input_area"><div class="CodeMirror cm-s-default CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 5.59375px; left: 5.59375px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-vscrollbar" cm-not-content="true" style="bottom: 0px;"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-hscrollbar" cm-not-content="true"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; padding-right: 0px; padding-bottom: 0px; margin-bottom: -17px; border-right-width: 13px; min-height: 253px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-cursors"><div class="CodeMirror-cursor" style="left: 0px; top: 0px; height: 20px;">&nbsp;</div></div><div class="CodeMirror-code"><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;"><span class="cm-header cm-header-2">## Part 2</span></span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;">For the next set of questions, we will be using census data from the <span class="cm-link">[United States Census Bureau]</span><span class="cm-string cm-url">(http://www.census.gov/popest/data/counties/totals/2015/CO-EST2015-alldata.html)</span>. Counties are political and geographic subdivisions of states in the United States. This dataset contains population data for counties and states in the US from 2010 to 2015. <span class="cm-link">[See this document]</span><span class="cm-string cm-url">(http://www.census.gov/popest/data/counties/totals/2015/files/CO-EST2015-alldata.pdf)</span> for a description of the variable names.</span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;">The census dataset (census.csv) should be loaded as census_df. Answer questions using this as appropriate.</span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;"><span class="cm-header cm-header-3">### Question 5</span></span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;">Which state has the most counties in it? (hint: consider the sumlevel key carefully! You'll need this for future questions too...)</span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;"><span class="cm-em">*This function should return a single string value.*</span></span></pre></div></div></div></div></div><div style="position: absolute; height: 13px; width: 1px; top: 253px;"></div><div class="CodeMirror-gutters" style="display: none; height: 266px;"></div></div></div></div><div class="text_cell_render rendered_html" tabindex="-1"><h2 id="Part-2">Part 2<a class="anchor-link" href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#Part-2">¶</a></h2>
+<p>For the next set of questions, we will be using census data from the <a href="http://www.census.gov/popest/data/counties/totals/2015/CO-EST2015-alldata.html" target="_blank">United States Census Bureau</a>. Counties are political and geographic subdivisions of states in the United States. This dataset contains population data for counties and states in the US from 2010 to 2015. <a href="http://www.census.gov/popest/data/counties/totals/2015/files/CO-EST2015-alldata.pdf" target="_blank">See this document</a> for a description of the variable names.</p>
+<p>The census dataset (census.csv) should be loaded as census_df. Answer questions using this as appropriate.</p>
+<h3 id="Question-5">Question 5<a class="anchor-link" href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#Question-5">¶</a></h3>
+<p>Which state has the most counties in it? (hint: consider the sumlevel key carefully! You'll need this for future questions too...)</p>
+<p><em>This function should return a single string value.</em></p>
+</div></div></div><div class="cell code_cell unselected rendered" tabindex="2"><div class="input"><div class="prompt input_prompt">In&nbsp;[111]:</div><div class="inner_cell"><div class="ctb_hideshow"><div class="celltoolbar"></div></div><div class="input_area"><div class="CodeMirror cm-s-ipython"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 5.59375px; left: 5.59375px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-vscrollbar" cm-not-content="true"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-hscrollbar" cm-not-content="true"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; min-width: 287.734px; margin-bottom: -17px; border-right-width: 13px; min-height: 45px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-cursors"><div class="CodeMirror-cursor" style="left: 0px; top: 0px; height: 17px;">&nbsp;</div></div><div class="CodeMirror-code"><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;"><span class="cm-variable">census_df</span> = <span class="cm-variable">pd</span>.<span class="cm-variable">read_csv</span>(<span class="cm-string">'census.csv'</span>)</span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;"><span class="cm-variable">census_df</span>.<span class="cm-variable">head</span>()</span></pre></div></div></div></div></div><div style="position: absolute; height: 13px; width: 1px; top: 45px;"></div><div class="CodeMirror-gutters" style="display: none; height: 58px;"></div></div></div></div></div></div><div class="widget-area" style="display: none;"><div class="prompt"><button class="close">×</button></div><div class="widget-subarea"></div></div><div class="output_wrapper"><div class="out_prompt_overlay prompt" title="click to expand output; double click to hide output" style=""></div><div class="output" style=""><div class="output_area"><div class="prompt output_prompt">Out[111]:</div><div class="output_subarea output_html rendered_html output_result"><div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right">
+      <th></th>
+      <th>SUMLEV</th>
+      <th>REGION</th>
+      <th>DIVISION</th>
+      <th>STATE</th>
+      <th>COUNTY</th>
+      <th>STNAME</th>
+      <th>CTYNAME</th>
+      <th>CENSUS2010POP</th>
+      <th>ESTIMATESBASE2010</th>
+      <th>POPESTIMATE2010</th>
+      <th>...</th>
+      <th>RDOMESTICMIG2011</th>
+      <th>RDOMESTICMIG2012</th>
+      <th>RDOMESTICMIG2013</th>
+      <th>RDOMESTICMIG2014</th>
+      <th>RDOMESTICMIG2015</th>
+      <th>RNETMIG2011</th>
+      <th>RNETMIG2012</th>
+      <th>RNETMIG2013</th>
+      <th>RNETMIG2014</th>
+      <th>RNETMIG2015</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>40</td>
+      <td>3</td>
+      <td>6</td>
+      <td>1</td>
+      <td>0</td>
+      <td>Alabama</td>
+      <td>Alabama</td>
+      <td>4779736</td>
+      <td>4780127</td>
+      <td>4785161</td>
+      <td>...</td>
+      <td>0.002295</td>
+      <td>-0.193196</td>
+      <td>0.381066</td>
+      <td>0.582002</td>
+      <td>-0.467369</td>
+      <td>1.030015</td>
+      <td>0.826644</td>
+      <td>1.383282</td>
+      <td>1.724718</td>
+      <td>0.712594</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>50</td>
+      <td>3</td>
+      <td>6</td>
+      <td>1</td>
+      <td>1</td>
+      <td>Alabama</td>
+      <td>Autauga County</td>
+      <td>54571</td>
+      <td>54571</td>
+      <td>54660</td>
+      <td>...</td>
+      <td>7.242091</td>
+      <td>-2.915927</td>
+      <td>-3.012349</td>
+      <td>2.265971</td>
+      <td>-2.530799</td>
+      <td>7.606016</td>
+      <td>-2.626146</td>
+      <td>-2.722002</td>
+      <td>2.592270</td>
+      <td>-2.187333</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>50</td>
+      <td>3</td>
+      <td>6</td>
+      <td>1</td>
+      <td>3</td>
+      <td>Alabama</td>
+      <td>Baldwin County</td>
+      <td>182265</td>
+      <td>182265</td>
+      <td>183193</td>
+      <td>...</td>
+      <td>14.832960</td>
+      <td>17.647293</td>
+      <td>21.845705</td>
+      <td>19.243287</td>
+      <td>17.197872</td>
+      <td>15.844176</td>
+      <td>18.559627</td>
+      <td>22.727626</td>
+      <td>20.317142</td>
+      <td>18.293499</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>50</td>
+      <td>3</td>
+      <td>6</td>
+      <td>1</td>
+      <td>5</td>
+      <td>Alabama</td>
+      <td>Barbour County</td>
+      <td>27457</td>
+      <td>27457</td>
+      <td>27341</td>
+      <td>...</td>
+      <td>-4.728132</td>
+      <td>-2.500690</td>
+      <td>-7.056824</td>
+      <td>-3.904217</td>
+      <td>-10.543299</td>
+      <td>-4.874741</td>
+      <td>-2.758113</td>
+      <td>-7.167664</td>
+      <td>-3.978583</td>
+      <td>-10.543299</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>50</td>
+      <td>3</td>
+      <td>6</td>
+      <td>1</td>
+      <td>7</td>
+      <td>Alabama</td>
+      <td>Bibb County</td>
+      <td>22915</td>
+      <td>22919</td>
+      <td>22861</td>
+      <td>...</td>
+      <td>-5.527043</td>
+      <td>-5.068871</td>
+      <td>-6.201001</td>
+      <td>-0.177537</td>
+      <td>0.177258</td>
+      <td>-5.088389</td>
+      <td>-4.363636</td>
+      <td>-5.403729</td>
+      <td>0.754533</td>
+      <td>1.107861</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 100 columns</p>
+</div></div></div></div><div class="btn btn-default output_collapsed" title="click to expand output" style="display: none;">. . .</div></div></div><div class="cell code_cell unselected rendered" tabindex="2"><div class="input"><div class="prompt input_prompt">In&nbsp;[82]:</div><div class="inner_cell"><div class="ctb_hideshow"><div class="celltoolbar"></div></div><div class="input_area"><div class="CodeMirror cm-s-ipython"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 5.59375px; left: 5.59375px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-vscrollbar" cm-not-content="true"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-hscrollbar" cm-not-content="true"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; min-width: 264.656px; margin-bottom: -17px; border-right-width: 13px; min-height: 113px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-cursors"><div class="CodeMirror-cursor" style="left: 0px; top: 0px; height: 17px;">&nbsp;</div></div><div class="CodeMirror-code"><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;"><span class="cm-keyword">def</span> <span class="cm-def">answer_five</span>():</span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;">    <span class="cm-variable">Stnames</span> = <span class="cm-variable">census_df</span>[<span class="cm-string">'STNAME'</span>]</span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;">    <span class="cm-variable">times</span> = <span class="cm-variable">Stnames</span>.<span class="cm-variable">value_counts</span>()</span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;">    <span class="cm-variable">max_cts</span> = <span class="cm-variable">times</span>.<span class="cm-variable">idxmax</span>()</span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;">    <span class="cm-keyword">return</span> <span class="cm-variable">max_cts</span></span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;"><span class="cm-variable">answer_five</span>()</span></pre></div></div></div></div></div><div style="position: absolute; height: 13px; width: 1px; top: 113px;"></div><div class="CodeMirror-gutters" style="display: none; height: 126px;"></div></div></div></div></div></div><div class="widget-area" style="display: none;"><div class="prompt"><button class="close">×</button></div><div class="widget-subarea"></div></div><div class="output_wrapper"><div class="out_prompt_overlay prompt" title="click to expand output; double click to hide output" style=""></div><div class="output" style=""><div class="output_area"><div class="prompt output_prompt">Out[82]:</div><div class="output_subarea output_text output_result"><pre>'Texas'</pre></div></div></div><div class="btn btn-default output_collapsed" title="click to expand output" style="display: none;">. . .</div></div></div><div class="cell text_cell unselected rendered" tabindex="2"><div class="prompt input_prompt"></div><div class="inner_cell"><div class="ctb_hideshow"><div class="celltoolbar"></div></div><div class="input_area"><div class="CodeMirror cm-s-default CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 5.59375px; left: 5.59375px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-vscrollbar" cm-not-content="true" style="bottom: 0px;"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-hscrollbar" cm-not-content="true"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; padding-right: 0px; padding-bottom: 0px; margin-bottom: -17px; border-right-width: 13px; min-height: 97px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-cursors"><div class="CodeMirror-cursor" style="left: 0px; top: 0px; height: 18px;">&nbsp;</div></div><div class="CodeMirror-code"><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;"><span class="cm-header cm-header-3">### Question 6</span></span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;">Only looking at the three most populous counties for each state, what are the three most populous states (in order of highest population to lowest population)? Use <span class="cm-comment">`CENSUS2010POP`</span>.</span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;"><span class="cm-em">*This function should return a list of string values.*</span></span></pre></div></div></div></div></div><div style="position: absolute; height: 13px; width: 1px; top: 97px;"></div><div class="CodeMirror-gutters" style="display: none; height: 110px;"></div></div></div></div><div class="text_cell_render rendered_html" tabindex="-1"><h3 id="Question-6">Question 6<a class="anchor-link" href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#Question-6">¶</a></h3>
+<p>Only looking at the three most populous counties for each state, what are the three most populous states (in order of highest population to lowest population)? Use <code>CENSUS2010POP</code>.</p>
+<p><em>This function should return a list of string values.</em></p>
+</div></div></div><div class="cell code_cell unselected rendered" tabindex="2"><div class="input"><div class="prompt input_prompt">In&nbsp;[168]:</div><div class="inner_cell"><div class="ctb_hideshow"><div class="celltoolbar"></div></div><div class="input_area"><div class="CodeMirror cm-s-ipython"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 5.59375px; left: 5.59375px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-vscrollbar" cm-not-content="true"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-hscrollbar" cm-not-content="true"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; min-width: 664.828px; margin-bottom: -17px; border-right-width: 13px; min-height: 164px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-cursors"><div class="CodeMirror-cursor" style="left: 0px; top: 0px; height: 17px;">&nbsp;</div></div><div class="CodeMirror-code"><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;"><span class="cm-keyword">def</span> <span class="cm-def">answer_six</span>():</span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;">    <span class="cm-variable">census2_df</span> = <span class="cm-variable">census_df</span>[<span class="cm-variable">census_df</span>[<span class="cm-string">'SUMLEV'</span>] <span class="cm-operator">==</span> <span class="cm-number">50</span>]</span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;">    <span class="cm-variable">census2_df</span> = <span class="cm-variable">census2_df</span>.<span class="cm-variable">sort_values</span>([<span class="cm-string">'STNAME'</span>, <span class="cm-string">'CENSUS2010POP'</span>], <span class="cm-variable">ascending</span> =[<span class="cm-number">1</span>,<span class="cm-number">0</span>])</span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;">    <span class="cm-variable">census3_df</span> = <span class="cm-variable">census2_df</span>.<span class="cm-variable">groupby</span>(<span class="cm-string">'STNAME'</span>).<span class="cm-variable">head</span>(<span class="cm-number">3</span>)</span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;">    <span class="cm-variable">census31_df</span> = <span class="cm-variable">census3_df</span>.<span class="cm-variable">groupby</span>(<span class="cm-string">'STNAME'</span>).<span class="cm-builtin">sum</span>()</span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;">    <span class="cm-variable">census32_df</span> = <span class="cm-variable">census31_df</span>.<span class="cm-variable">CENSUS2010POP</span>.<span class="cm-variable">nlargest</span>(<span class="cm-number">3</span>)</span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;">    <span class="cm-variable">census_list</span> = <span class="cm-builtin">list</span>(<span class="cm-variable">census32_df</span>.<span class="cm-variable">index</span>.<span class="cm-variable">values</span>)</span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;">    <span class="cm-keyword">return</span> <span class="cm-variable">census_list</span></span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;"><span class="cm-variable">answer_six</span>()</span></pre></div></div></div></div></div><div style="position: absolute; height: 13px; width: 1px; top: 164px;"></div><div class="CodeMirror-gutters" style="display: none; height: 177px;"></div></div></div></div></div></div><div class="widget-area" style="display: none;"><div class="prompt"><button class="close">×</button></div><div class="widget-subarea"></div></div><div class="output_wrapper"><div class="out_prompt_overlay prompt" title="click to expand output; double click to hide output" style=""></div><div class="output" style=""><div class="output_area"><div class="prompt output_prompt">Out[168]:</div><div class="output_subarea output_text output_result"><pre>['California', 'Texas', 'Illinois']</pre></div></div></div><div class="btn btn-default output_collapsed" title="click to expand output" style="display: none;">. . .</div></div></div><div class="cell text_cell unselected rendered" tabindex="2"><div class="prompt input_prompt"></div><div class="inner_cell"><div class="ctb_hideshow"><div class="celltoolbar"></div></div><div class="input_area"><div class="CodeMirror cm-s-default CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 5.59375px; left: 5.59375px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-vscrollbar" cm-not-content="true" style="bottom: 0px;"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-hscrollbar" cm-not-content="true"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; padding-right: 0px; padding-bottom: 0px; margin-bottom: -17px; border-right-width: 13px; min-height: 148px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-cursors"><div class="CodeMirror-cursor" style="left: 0px; top: 0px; height: 18px;">&nbsp;</div></div><div class="CodeMirror-code"><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;"><span class="cm-header cm-header-3">### Question 7</span></span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;">Which county has had the largest absolute change in population within the period 2010-2015? (Hint: population values are stored in columns POPESTIMATE2010 through POPESTIMATE2015, you need to consider all six columns.)</span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;">e.g. If County Population in the 5 year period is 100, 120, 80, 105, 100, 130, then its largest change in the period would be |130-80| = 50.</span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;"><span class="cm-em">*This function should return a single string value.*</span></span></pre></div></div></div></div></div><div style="position: absolute; height: 13px; width: 1px; top: 148px;"></div><div class="CodeMirror-gutters" style="display: none; height: 161px;"></div></div></div></div><div class="text_cell_render rendered_html" tabindex="-1"><h3 id="Question-7">Question 7<a class="anchor-link" href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#Question-7">¶</a></h3>
+<p>Which county has had the largest absolute change in population within the period 2010-2015? (Hint: population values are stored in columns POPESTIMATE2010 through POPESTIMATE2015, you need to consider all six columns.)</p>
+<p>e.g. If County Population in the 5 year period is 100, 120, 80, 105, 100, 130, then its largest change in the period would be |130-80| = 50.</p>
+<p><em>This function should return a single string value.</em></p>
+</div></div></div><div class="cell code_cell unselected rendered" tabindex="2"><div class="input"><div class="prompt input_prompt">In&nbsp;[130]:</div><div class="inner_cell"><div class="ctb_hideshow"><div class="celltoolbar"></div></div><div class="input_area"><div class="CodeMirror cm-s-ipython"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 5.59375px; left: 5.59375px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-vscrollbar" cm-not-content="true"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-hscrollbar" cm-not-content="true" style="display: block; right: 0px; left: 0px;"><div style="height: 100%; min-height: 1px; width: 1257px;"></div></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; min-width: 1257.41px; margin-bottom: -17px; border-right-width: 13px; min-height: 164px; padding-right: 0px; padding-bottom: 17px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-cursors"><div class="CodeMirror-cursor" style="left: 0px; top: 0px; height: 17px;">&nbsp;</div></div><div class="CodeMirror-code"><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;"><span class="cm-keyword">def</span> <span class="cm-def">answer_seven</span>():</span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;">    <span class="cm-variable">census4_df</span> = <span class="cm-variable">census_df</span>[<span class="cm-variable">census_df</span>[<span class="cm-string">'SUMLEV'</span>] <span class="cm-operator">==</span> <span class="cm-number">50</span>]</span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;">    <span class="cm-variable">census4_df</span> = <span class="cm-variable">census4_df</span>.<span class="cm-variable">set_index</span>([<span class="cm-string">'CTYNAME'</span>])</span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;">    <span class="cm-variable">census4_df</span>[<span class="cm-string">'min'</span>] = <span class="cm-variable">census4_df</span>.<span class="cm-variable">loc</span>[:,[<span class="cm-string">'POPESTIMATE2010'</span>,<span class="cm-string">'POPESTIMATE2011'</span>,<span class="cm-string">'POPESTIMATE2012'</span>,<span class="cm-string">'POPESTIMATE2013'</span>,<span class="cm-string">'POPESTIMATE2014'</span>,<span class="cm-string">'POPESTIMATE2015'</span>]].<span class="cm-builtin">min</span>(<span class="cm-variable">axis</span>=<span class="cm-number">1</span>)</span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;">    <span class="cm-variable">census4_df</span>[<span class="cm-string">'max'</span>] = <span class="cm-variable">census4_df</span>.<span class="cm-variable">loc</span>[:,[<span class="cm-string">'POPESTIMATE2010'</span>,<span class="cm-string">'POPESTIMATE2011'</span>,<span class="cm-string">'POPESTIMATE2012'</span>,<span class="cm-string">'POPESTIMATE2013'</span>,<span class="cm-string">'POPESTIMATE2014'</span>,<span class="cm-string">'POPESTIMATE2015'</span>]].<span class="cm-builtin">max</span>(<span class="cm-variable">axis</span>=<span class="cm-number">1</span>)</span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;">    <span class="cm-variable">census4_df</span>[<span class="cm-string">'Diff'</span>] = <span class="cm-variable">census4_df</span>[<span class="cm-string">'max'</span>] <span class="cm-operator">-</span> <span class="cm-variable">census4_df</span>[<span class="cm-string">'min'</span>]</span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;">    <span class="cm-variable">maxdiff</span> = <span class="cm-variable">census4_df</span>.<span class="cm-variable">Diff</span>.<span class="cm-variable">idxmax</span>()</span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;">    <span class="cm-keyword">return</span> <span class="cm-variable">maxdiff</span></span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;"><span class="cm-variable">answer_seven</span>()</span></pre></div></div></div></div></div><div style="position: absolute; height: 13px; width: 1px; top: 164px;"></div><div class="CodeMirror-gutters" style="display: none; height: 177px;"></div></div></div></div></div></div><div class="widget-area" style="display: none;"><div class="prompt"><button class="close">×</button></div><div class="widget-subarea"></div></div><div class="output_wrapper"><div class="out_prompt_overlay prompt" title="click to expand output; double click to hide output" style=""></div><div class="output" style=""><div class="output_area"><div class="prompt output_prompt">Out[130]:</div><div class="output_subarea output_text output_result"><pre>'Harris County'</pre></div></div></div><div class="btn btn-default output_collapsed" title="click to expand output" style="display: none;">. . .</div></div></div><div class="cell text_cell unselected rendered" tabindex="2"><div class="prompt input_prompt"></div><div class="inner_cell"><div class="ctb_hideshow"><div class="celltoolbar"></div></div><div class="input_area"><div class="CodeMirror cm-s-default CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 5.59375px; left: 5.59375px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-vscrollbar" cm-not-content="true" style="bottom: 0px;"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-hscrollbar" cm-not-content="true"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; padding-right: 0px; padding-bottom: 0px; margin-bottom: -17px; border-right-width: 13px; min-height: 148px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-cursors"><div class="CodeMirror-cursor" style="left: 0px; top: 0px; height: 18px;">&nbsp;</div></div><div class="CodeMirror-code"><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;"><span class="cm-header cm-header-3">### Question 8</span></span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;">In this datafile, the United States is broken up into four regions using the "REGION" column. </span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;">Create a query that finds the counties that belong to regions 1 or 2, whose name starts with 'Washington', and whose POPESTIMATE2015 was greater than their POPESTIMATE 2014.</span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;"><span class="cm-em">*This function should return a 5x2 DataFrame with the columns = ['STNAME', 'CTYNAME'] and the same index ID as the census_df (sorted ascending by index).*</span></span></pre></div></div></div></div></div><div style="position: absolute; height: 13px; width: 1px; top: 148px;"></div><div class="CodeMirror-gutters" style="display: none; height: 161px;"></div></div></div></div><div class="text_cell_render rendered_html" tabindex="-1"><h3 id="Question-8">Question 8<a class="anchor-link" href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#Question-8">¶</a></h3>
+<p>In this datafile, the United States is broken up into four regions using the "REGION" column. </p>
+<p>Create a query that finds the counties that belong to regions 1 or 2, whose name starts with 'Washington', and whose POPESTIMATE2015 was greater than their POPESTIMATE 2014.</p>
+<p><em>This function should return a 5x2 DataFrame with the columns = ['STNAME', 'CTYNAME'] and the same index ID as the census_df (sorted ascending by index).</em></p>
+</div></div></div><div class="cell code_cell unselected rendered" tabindex="2"><div class="input"><div class="prompt input_prompt">In&nbsp;[146]:</div><div class="inner_cell"><div class="ctb_hideshow"><div class="celltoolbar"></div></div><div class="input_area"><div class="CodeMirror cm-s-ipython"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 5.59375px; left: 5.59375px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-vscrollbar" cm-not-content="true"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-hscrollbar" cm-not-content="true"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; min-width: 695.641px; margin-bottom: -17px; border-right-width: 13px; min-height: 164px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-cursors"><div class="CodeMirror-cursor" style="left: 0px; top: 0px; height: 17px;">&nbsp;</div></div><div class="CodeMirror-code"><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;"><span class="cm-keyword">def</span> <span class="cm-def">answer_eight</span>():</span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;">    <span class="cm-variable">census5_df</span> = <span class="cm-variable">census_df</span>[<span class="cm-variable">census_df</span>[<span class="cm-string">'SUMLEV'</span>] <span class="cm-operator">==</span> <span class="cm-number">50</span>]</span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;">    <span class="cm-variable">census5_df</span> = <span class="cm-variable">census5_df</span>[<span class="cm-variable">census5_df</span>[<span class="cm-string">'REGION'</span>] <span class="cm-operator">&lt;=</span><span class="cm-number">2</span>]</span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;">    <span class="cm-variable">census5_df</span> = <span class="cm-variable">census5_df</span>[<span class="cm-variable">census5_df</span>[<span class="cm-string">'POPESTIMATE2015'</span>] <span class="cm-operator">&gt;</span> <span class="cm-variable">census5_df</span>[<span class="cm-string">'POPESTIMATE2014'</span>]]</span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;">    <span class="cm-variable">census5_df</span> = <span class="cm-variable">census5_df</span>[<span class="cm-variable">census5_df</span>[<span class="cm-string">'CTYNAME'</span>].<span class="cm-builtin">str</span>.<span class="cm-variable">contains</span>(<span class="cm-string">'Washington'</span>)]</span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;">    <span class="cm-variable">columns_to_keep</span> = [<span class="cm-string">'STNAME'</span>, <span class="cm-string">'CTYNAME'</span>]</span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;">    <span class="cm-variable">census5_df</span> = <span class="cm-variable">census5_df</span>[<span class="cm-variable">columns_to_keep</span>]</span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;">    <span class="cm-keyword">return</span> <span class="cm-variable">census5_df</span></span></pre><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;"><span class="cm-variable">answer_eight</span>()</span></pre></div></div></div></div></div><div style="position: absolute; height: 13px; width: 1px; top: 164px;"></div><div class="CodeMirror-gutters" style="display: none; height: 177px;"></div></div></div></div></div></div><div class="widget-area" style="display: none;"><div class="prompt"><button class="close">×</button></div><div class="widget-subarea"></div></div><div class="output_wrapper"><div class="out_prompt_overlay prompt" title="click to expand output; double click to hide output" style=""></div><div class="output" style=""><div class="output_area"><div class="prompt output_prompt">Out[146]:</div><div class="output_subarea output_html rendered_html output_result"><div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right">
+      <th></th>
+      <th>STNAME</th>
+      <th>CTYNAME</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>896</th>
+      <td>Iowa</td>
+      <td>Washington County</td>
+    </tr>
+    <tr>
+      <th>1419</th>
+      <td>Minnesota</td>
+      <td>Washington County</td>
+    </tr>
+    <tr>
+      <th>2345</th>
+      <td>Pennsylvania</td>
+      <td>Washington County</td>
+    </tr>
+    <tr>
+      <th>2355</th>
+      <td>Rhode Island</td>
+      <td>Washington County</td>
+    </tr>
+    <tr>
+      <th>3163</th>
+      <td>Wisconsin</td>
+      <td>Washington County</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div></div><div class="btn btn-default output_collapsed" title="click to expand output" style="display: none;">. . .</div></div></div><div class="cell code_cell unselected rendered" tabindex="2"><div class="input"><div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div><div class="inner_cell"><div class="ctb_hideshow"><div class="celltoolbar"></div></div><div class="input_area"><div class="CodeMirror cm-s-ipython"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 5.59375px; left: 5.59375px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-vscrollbar" cm-not-content="true"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-hscrollbar" cm-not-content="true"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; min-width: 3px; margin-bottom: -17px; border-right-width: 13px; min-height: 28px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-cursors"><div class="CodeMirror-cursor" style="left: 0px; top: 0px; height: 17px;">&nbsp;</div></div><div class="CodeMirror-code"><pre class=" CodeMirror-line "><span style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre></div></div></div></div></div><div style="position: absolute; height: 13px; width: 1px; top: 28px;"></div><div class="CodeMirror-gutters" style="display: none; height: 41px;"></div></div></div></div></div></div><div class="widget-area" style="display: none;"><div class="prompt"><button class="close">×</button></div><div class="widget-subarea"></div></div><div class="output_wrapper"><div class="out_prompt_overlay prompt" title="click to expand output; double click to hide output" style="display: none;"></div><div class="output" style="display: none;"></div><div class="btn btn-default output_collapsed" title="click to expand output" style="display: none;">. . .</div></div></div></div><div class="end_space"></div></div>
+        <div id="tooltip" class="ipython_tooltip" style="display:none"><div class="tooltipbuttons"><a href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#" role="button" class="ui-button"><span class="ui-icon ui-icon-close">Close</span></a><a href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#" class="ui-corner-all" role="button" id="expanbutton" title="Grow the tooltip vertically (press shift-tab twice)"><span class="ui-icon ui-icon-plus">Expand</span></a><a href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#" role="button" class="ui-button" title="show the current docstring in pager (press shift-tab 4 times)"><span class="ui-icon ui-icon-arrowstop-l-n">Open in Pager</span></a><a href="https://hub.coursera-notebooks.org/user/yracpdmrdlfafpmzrbykhd/notebooks/Assignment%202.ipynb#" role="button" class="ui-button" title="Tooltip will linger for 10 seconds while you type" style="display: none;"><span class="ui-icon ui-icon-clock">Close</span></a></div><div class="pretooltiparrow"></div><div class="tooltiptext smalltooltip"></div></div>
+    </div>
+</div>
+
+
+
+</div>
+
+
+
+<div id="pager" class="ui-resizable">
+    <div id="pager-contents">
+        <div id="pager-container" class="container"></div>
+    </div>
+    <div id="pager-button-area"><a role="button" title="Open the pager in an external window" class="ui-button"><span class="ui-icon ui-icon-extlink"></span></a><a role="button" title="Close the pager" class="ui-button"><span class="ui-icon ui-icon-close"></span></a></div>
+<div class="ui-resizable-handle ui-resizable-n" style="z-index: 90;"></div></div>
+
+
+
+
+
+
+<script type="text/javascript">
+    sys_info = {"notebook_path": "/opt/conda/lib/python3.5/site-packages/notebook", "sys_version": "3.5.2 |Continuum Analytics, Inc.| (default, Jul  2 2016, 17:53:06) \n[GCC 4.4.7 20120313 (Red Hat 4.4.7-1)]", "sys_platform": "linux", "commit_hash": "", "default_encoding": "UTF-8", "os_name": "posix", "sys_executable": "/opt/conda/bin/python", "notebook_version": "4.2.3", "platform": "Linux-4.4.0-45-generic-x86_64-with-debian-8.6", "commit_source": ""};
+</script>
+
+<script src="./Assignment 2_files/encoding.js.download" charset="utf-8"></script>
+
+
+    <script src="./Assignment 2_files/main.min.js.download" type="text/javascript" charset="utf-8"></script>
+
+
+
+
+
+
+<div style="position: absolute; width: 0px; height: 0px; overflow: hidden; padding: 0px; border: 0px; margin: 0px;"><div id="MathJax_Font_Test" style="position: absolute; visibility: hidden; top: 0px; left: 0px; width: auto; padding: 0px; border: 0px; margin: 0px; white-space: nowrap; text-align: left; text-indent: 0px; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; font-size: 40px; font-weight: normal; font-style: normal; font-family: STIXMathJax_Main, sans-serif;"></div></div><div class="widget-modal-backdrop widget-modal-hidden"><div class="widget-modal-text"><i class="fa fa-cog fa-spin"></i><div>Rendering widgets...</div></div><div class="progress widget-modal-progress"><div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div></div></div></body></html>
